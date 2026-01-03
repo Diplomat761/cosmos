@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB"/>
+      <stop offset="40%" style="stop-color:#98D8C8"/>
+      <stop offset="100%" style="stop-color:#2d5a27"/>
+    </linearGradient>
+    <linearGradient id="sunGlow" cx="50%" cy="30%" r="50%" fx="50%" fy="30%">
+      <stop offset="0%" style="stop-color:#FFFACD;stop-opacity:0.9"/>
+      <stop offset="50%" style="stop-color:#FFE4B5;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#FFE4B5;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="treeGreen1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#228B22"/>
+      <stop offset="100%" style="stop-color:#1a5c1a"/>
+    </linearGradient>
+    <linearGradient id="treeGreen2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#32CD32"/>
+      <stop offset="100%" style="stop-color:#228B22"/>
+    </linearGradient>
+    <linearGradient id="treeGreen3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3CB371"/>
+      <stop offset="100%" style="stop-color:#2E8B57"/>
+    </linearGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  
+  <!-- Небо -->
+  <rect width="1920" height="600" fill="url(#skyGradient)"/>
+  
+  <!-- Солнце и лучи -->
+  <circle cx="1600" cy="120" r="80" fill="url(#sunGlow)"/>
+  <circle cx="1600" cy="120" r="50" fill="#FFF8DC" opacity="0.9"/>
+  
+  <!-- Облака -->
+  <g fill="white" opacity="0.8">
+    <ellipse cx="200" cy="100" rx="80" ry="40"/>
+    <ellipse cx="260" cy="90" rx="60" ry="35"/>
+    <ellipse cx="150" cy="110" rx="50" ry="25"/>
+    
+    <ellipse cx="800" cy="80" rx="100" ry="45"/>
+    <ellipse cx="880" cy="70" rx="70" ry="40"/>
+    <ellipse cx="730" cy="90" rx="60" ry="30"/>
+    
+    <ellipse cx="1300" cy="140" rx="90" ry="40"/>
+    <ellipse cx="1370" cy="130" rx="60" ry="35"/>
+  </g>
+  
+  <!-- Дальние горы/холмы -->
+  <path d="M0 400 Q200 300 400 380 Q600 280 800 360 Q1000 300 1200 350 Q1400 280 1600 340 Q1800 300 1920 380 L1920 600 L0 600 Z" fill="#3d6b3d" opacity="0.5"/>
+  
+  <!-- Средние деревья (дальний план) -->
+  <g fill="url(#treeGreen1)" opacity="0.7" filter="url(#blur1)">
+    <path d="M50 600 L80 350 L60 360 L90 280 L70 290 L100 220 L130 290 L110 280 L140 360 L120 350 L150 600 Z"/>
+    <path d="M200 600 L240 320 L215 335 L255 240 L230 255 L270 180 L310 255 L285 240 L325 335 L300 320 L340 600 Z"/>
+    <path d="M400 600 L430 380 L410 390 L440 310 L420 320 L450 250 L480 320 L460 310 L490 390 L470 380 L500 600 Z"/>
+    <path d="M550 600 L590 300 L565 315 L605 220 L580 235 L620 160 L660 235 L635 220 L675 315 L650 300 L690 600 Z"/>
+    <path d="M750 600 L780 360 L760 370 L790 290 L770 300 L800 230 L830 300 L810 290 L840 370 L820 360 L850 600 Z"/>
+    <path d="M900 600 L940 340 L915 355 L955 260 L930 275 L970 200 L1010 275 L985 260 L1025 355 L1000 340 L1040 600 Z"/>
+    <path d="M1100 600 L1130 380 L1110 390 L1140 310 L1120 320 L1150 250 L1180 320 L1160 310 L1190 390 L1170 380 L1200 600 Z"/>
+    <path d="M1250 600 L1290 320 L1265 335 L1305 240 L1280 255 L1320 180 L1360 255 L1335 240 L1375 335 L1350 320 L1390 600 Z"/>
+    <path d="M1450 600 L1480 360 L1460 370 L1490 290 L1470 300 L1500 230 L1530 300 L1510 290 L1540 370 L1520 360 L1550 600 Z"/>
+    <path d="M1600 600 L1640 300 L1615 315 L1655 220 L1630 235 L1670 160 L1710 235 L1685 220 L1725 315 L1700 300 L1740 600 Z"/>
+    <path d="M1800 600 L1830 380 L1810 390 L1840 310 L1820 320 L1850 250 L1880 320 L1860 310 L1890 390 L1870 380 L1920 600 Z"/>
+  </g>
+  
+  <!-- Передний план - большие деревья -->
+  <g fill="url(#treeGreen2)">
+    <!-- Дерево 1 -->
+    <rect x="85" y="450" width="30" height="150" fill="#8B4513"/>
+    <path d="M100 480 L40 480 L70 400 L50 410 L80 340 L55 355 L100 250 L145 355 L120 340 L150 410 L130 400 L160 480 Z"/>
+    
+    <!-- Дерево 2 -->
+    <rect x="285" y="420" width="40" height="180" fill="#A0522D"/>
+    <path d="M305 450 L220 450 L260 350 L235 365 L280 270 L250 290 L305 180 L360 290 L330 270 L375 365 L350 350 L390 450 Z"/>
+    
+    <!-- Дерево 3 -->
+    <rect x="535" y="460" width="35" height="140" fill="#8B4513"/>
+    <path d="M552 490 L480 490 L515 400 L490 415 L530 330 L505 345 L552 260 L599 345 L574 330 L614 415 L589 400 L624 490 Z"/>
+    
+    <!-- Дерево 4 -->
+    <rect x="780" y="430" width="45" height="170" fill="#A0522D"/>
+    <path d="M802 460 L710 460 L755 360 L725 378 L775 280 L742 300 L802 190 L862 300 L829 280 L879 378 L849 360 L894 460 Z"/>
+    
+    <!-- Дерево 5 -->
+    <rect x="1035" y="450" width="35" height="150" fill="#8B4513"/>
+    <path d="M1052 480 L985 480 L1020 390 L995 405 L1035 320 L1010 335 L1052 250 L1094 335 L1069 320 L1109 405 L1084 390 L1119 480 Z"/>
+    
+    <!-- Дерево 6 -->
+    <rect x="1285" y="420" width="40" height="180" fill="#A0522D"/>
+    <path d="M1305 450 L1220 450 L1260 350 L1235 365 L1280 270 L1250 290 L1305 180 L1360 290 L1330 270 L1375 365 L1350 350 L1390 450 Z"/>
+    
+    <!-- Дерево 7 -->
+    <rect x="1535" y="455" width="35" height="145" fill="#8B4513"/>
+    <path d="M1552 485 L1485 485 L1520 400 L1495 415 L1535 330 L1510 345 L1552 260 L1594 345 L1569 330 L1609 415 L1584 400 L1619 485 Z"/>
+    
+    <!-- Дерево 8 -->
+    <rect x="1780" y="440" width="40" height="160" fill="#A0522D"/>
+    <path d="M1800 470 L1720 470 L1760 380 L1735 395 L1775 310 L1750 325 L1800 230 L1850 325 L1825 310 L1865 395 L1840 380 L1880 470 Z"/>
+  </g>
+  
+  <!-- Кусты на переднем плане -->
+  <g fill="url(#treeGreen3)">
+    <ellipse cx="50" cy="580" rx="60" ry="40"/>
+    <ellipse cx="180" cy="590" rx="50" ry="30"/>
+    <ellipse cx="350" cy="585" rx="70" ry="35"/>
+    <ellipse cx="500" cy="590" rx="55" ry="30"/>
+    <ellipse cx="650" cy="580" rx="65" ry="40"/>
+    <ellipse cx="850" cy="590" rx="50" ry="30"/>
+    <ellipse cx="1000" cy="585" rx="60" ry="35"/>
+    <ellipse cx="1150" cy="580" rx="55" ry="40"/>
+    <ellipse cx="1350" cy="590" rx="70" ry="30"/>
+    <ellipse cx="1500" cy="585" rx="50" ry="35"/>
+    <ellipse cx="1700" cy="580" rx="65" ry="40"/>
+    <ellipse cx="1870" cy="590" rx="60" ry="30"/>
+  </g>
+  
+  <!-- Трава -->
+  <rect x="0" y="580" width="1920" height="20" fill="#2d5a27"/>
+  
+  <!-- Световые лучи -->
+  <g fill="rgba(255,255,200,0.1)">
+    <polygon points="1600,120 1400,600 1500,600"/>
+    <polygon points="1600,120 1650,600 1750,600"/>
+    <polygon points="1600,120 1800,600 1920,600"/>
+  </g>
+</svg>
+

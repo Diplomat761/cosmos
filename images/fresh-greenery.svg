@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8F5E9"/>
+      <stop offset="100%" style="stop-color:#C8E6C9"/>
+    </linearGradient>
+    <linearGradient id="stemGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2E7D32"/>
+      <stop offset="50%" style="stop-color:#43A047"/>
+      <stop offset="100%" style="stop-color:#2E7D32"/>
+    </linearGradient>
+    <linearGradient id="leafBright" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81C784"/>
+      <stop offset="50%" style="stop-color:#66BB6A"/>
+      <stop offset="100%" style="stop-color:#4CAF50"/>
+    </linearGradient>
+    <linearGradient id="leafDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50"/>
+      <stop offset="100%" style="stop-color:#2E7D32"/>
+    </linearGradient>
+    <linearGradient id="dewDrop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.9)"/>
+      <stop offset="50%" style="stop-color:rgba(200,230,255,0.6)"/>
+      <stop offset="100%" style="stop-color:rgba(100,180,255,0.3)"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+  
+  <!-- Светлый фон -->
+  <rect width="400" height="300" fill="url(#bgGrad)"/>
+  
+  <!-- Мягкий свет сверху -->
+  <ellipse cx="200" cy="0" rx="300" ry="150" fill="rgba(255,255,255,0.4)"/>
+  
+  <!-- Папоротник 1 (слева) -->
+  <g transform="translate(80, 280)">
+    <path d="M0 0 Q10 -80 -5 -160" stroke="url(#stemGreen)" stroke-width="4" fill="none"/>
+    <!-- Листочки -->
+    <g fill="url(#leafBright)">
+      <ellipse cx="-15" cy="-40" rx="20" ry="6" transform="rotate(-30 -15 -40)"/>
+      <ellipse cx="-20" cy="-70" rx="22" ry="7" transform="rotate(-35 -20 -70)"/>
+      <ellipse cx="-18" cy="-100" rx="20" ry="6" transform="rotate(-40 -18 -100)"/>
+      <ellipse cx="-12" cy="-130" rx="18" ry="5" transform="rotate(-45 -12 -130)"/>
+      <ellipse cx="-5" cy="-155" rx="12" ry="4" transform="rotate(-50 -5 -155)"/>
+    </g>
+    <g fill="url(#leafDark)">
+      <ellipse cx="10" cy="-50" rx="18" ry="5" transform="rotate(25 10 -50)"/>
+      <ellipse cx="15" cy="-80" rx="20" ry="6" transform="rotate(30 15 -80)"/>
+      <ellipse cx="12" cy="-110" rx="18" ry="5" transform="rotate(35 12 -110)"/>
+      <ellipse cx="8" cy="-140" rx="15" ry="4" transform="rotate(40 8 -140)"/>
+    </g>
+  </g>
+  
+  <!-- Папоротник 2 (справа) -->
+  <g transform="translate(320, 280)">
+    <path d="M0 0 Q-10 -90 5 -170" stroke="url(#stemGreen)" stroke-width="4" fill="none"/>
+    <g fill="url(#leafBright)">
+      <ellipse cx="18" cy="-45" rx="22" ry="6" transform="rotate(35 18 -45)"/>
+      <ellipse cx="22" cy="-75" rx="24" ry="7" transform="rotate(40 22 -75)"/>
+      <ellipse cx="18" cy="-105" rx="20" ry="6" transform="rotate(45 18 -105)"/>
+      <ellipse cx="12" cy="-135" rx="16" ry="5" transform="rotate(50 12 -135)"/>
+      <ellipse cx="5" cy="-165" rx="10" ry="3" transform="rotate(55 5 -165)"/>
+    </g>
+    <g fill="url(#leafDark)">
+      <ellipse cx="-12" cy="-55" rx="20" ry="5" transform="rotate(-30 -12 -55)"/>
+      <ellipse cx="-16" cy="-85" rx="22" ry="6" transform="rotate(-35 -16 -85)"/>
+      <ellipse cx="-14" cy="-115" rx="18" ry="5" transform="rotate(-40 -14 -115)"/>
+      <ellipse cx="-8" cy="-145" rx="14" ry="4" transform="rotate(-45 -8 -145)"/>
+    </g>
+  </g>
+  
+  <!-- Центральное растение -->
+  <g transform="translate(200, 300)">
+    <path d="M0 0 Q5 -100 0 -200" stroke="url(#stemGreen)" stroke-width="5" fill="none"/>
+    <!-- Большие листья -->
+    <g fill="url(#leafBright)">
+      <ellipse cx="-40" cy="-60" rx="45" ry="12" transform="rotate(-25 -40 -60)"/>
+      <ellipse cx="-50" cy="-100" rx="50" ry="14" transform="rotate(-30 -50 -100)"/>
+      <ellipse cx="-45" cy="-140" rx="45" ry="12" transform="rotate(-35 -45 -140)"/>
+      <ellipse cx="-30" cy="-175" rx="35" ry="10" transform="rotate(-45 -30 -175)"/>
+    </g>
+    <g fill="url(#leafDark)">
+      <ellipse cx="40" cy="-70" rx="42" ry="11" transform="rotate(28 40 -70)"/>
+      <ellipse cx="48" cy="-110" rx="48" ry="13" transform="rotate(32 48 -110)"/>
+      <ellipse cx="42" cy="-150" rx="42" ry="11" transform="rotate(38 42 -150)"/>
+      <ellipse cx="25" cy="-185" rx="30" ry="8" transform="rotate(48 25 -185)"/>
+    </g>
+    <!-- Молодые листики наверху -->
+    <g fill="#A5D6A7">
+      <ellipse cx="-10" cy="-195" rx="15" ry="5" transform="rotate(-50 -10 -195)"/>
+      <ellipse cx="10" cy="-198" rx="15" ry="5" transform="rotate(50 10 -198)"/>
+      <ellipse cx="0" cy="-205" rx="10" ry="4" transform="rotate(0 0 -205)"/>
+    </g>
+  </g>
+  
+  <!-- Дополнительные растения -->
+  <g transform="translate(50, 290)">
+    <path d="M0 0 Q-5 -40 5 -80" stroke="#43A047" stroke-width="3" fill="none"/>
+    <ellipse cx="-12" cy="-30" rx="18" ry="5" fill="url(#leafBright)" transform="rotate(-35 -12 -30)"/>
+    <ellipse cx="15" cy="-45" rx="20" ry="6" fill="url(#leafDark)" transform="rotate(30 15 -45)"/>
+    <ellipse cx="-8" cy="-60" rx="15" ry="4" fill="url(#leafBright)" transform="rotate(-40 -8 -60)"/>
+    <ellipse cx="10" cy="-75" rx="12" ry="3" fill="#A5D6A7" transform="rotate(45 10 -75)"/>
+  </g>
+  
+  <g transform="translate(350, 290)">
+    <path d="M0 0 Q5 -45 -5 -90" stroke="#43A047" stroke-width="3" fill="none"/>
+    <ellipse cx="14" cy="-35" rx="18" ry="5" fill="url(#leafBright)" transform="rotate(40 14 -35)"/>
+    <ellipse cx="-12" cy="-50" rx="20" ry="6" fill="url(#leafDark)" transform="rotate(-35 -12 -50)"/>
+    <ellipse cx="10" cy="-70" rx="15" ry="4" fill="url(#leafBright)" transform="rotate(45 10 -70)"/>
+    <ellipse cx="-5" cy="-85" rx="10" ry="3" fill="#A5D6A7" transform="rotate(-50 -5 -85)"/>
+  </g>
+  
+  <!-- Капли росы -->
+  <g>
+    <ellipse cx="160" cy="180" rx="6" ry="8" fill="url(#dewDrop)"/>
+    <ellipse cx="158" cy="177" rx="2" ry="2" fill="white" opacity="0.9"/>
+    
+    <ellipse cx="240" cy="160" rx="5" ry="7" fill="url(#dewDrop)"/>
+    <ellipse cx="238" cy="157" rx="1.5" ry="1.5" fill="white" opacity="0.9"/>
+    
+    <ellipse cx="100" cy="200" rx="4" ry="6" fill="url(#dewDrop)"/>
+    <ellipse cx="98" cy="198" rx="1.5" ry="1.5" fill="white" opacity="0.9"/>
+    
+    <ellipse cx="300" cy="190" rx="5" ry="7" fill="url(#dewDrop)"/>
+    <ellipse cx="298" cy="187" rx="1.5" ry="1.5" fill="white" opacity="0.9"/>
+    
+    <ellipse cx="200" cy="120" rx="4" ry="5" fill="url(#dewDrop)"/>
+    <ellipse cx="198" cy="118" rx="1" ry="1" fill="white" opacity="0.9"/>
+  </g>
+  
+  <!-- Световые блики -->
+  <g fill="rgba(255,255,255,0.4)" filter="url(#softGlow)">
+    <circle cx="180" cy="100" r="20"/>
+    <circle cx="220" cy="140" r="15"/>
+    <circle cx="150" cy="160" r="12"/>
+    <circle cx="260" cy="120" r="18"/>
+  </g>
+</svg>
+
