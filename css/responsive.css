@@ -1,4 +1,4 @@
-/* Адаптивные стили для ЖСК "Космос" */
+/* Адаптивные стили для ЖСК "Космос" - Природная тема */
 
 /* Планшеты (768px и выше) */
 @media (min-width: 768px) {
@@ -14,8 +14,26 @@
     display: none;
   }
 
+  .hero {
+    min-height: 400px;
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
   .hero__title {
+    font-size: 2.8rem;
+  }
+
+  .hero__title::after {
     font-size: 2.5rem;
+  }
+
+  /* Галерея природы */
+  .nature-gallery__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .nature-gallery__img {
+    height: 200px;
   }
 
   .action-blocks__grid {
@@ -42,16 +60,32 @@
 
 /* Десктопы (1024px и выше) */
 @media (min-width: 1024px) {
+  .hero {
+    min-height: 450px;
+  }
+
   .hero__title {
-    font-size: 3rem;
+    font-size: 3.2rem;
+  }
+
+  .nature-gallery__img {
+    height: 220px;
   }
 
   .info-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .news-list {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .action-block {
+    padding: var(--spacing-xl);
+  }
+
+  .action-block__icon {
+    font-size: 5rem;
   }
 }
 
@@ -60,5 +94,50 @@
   .container {
     max-width: 1280px;
   }
+
+  .hero {
+    min-height: 500px;
+  }
+
+  .hero__title {
+    font-size: 3.5rem;
+  }
+
+  .nature-gallery__img {
+    height: 250px;
+  }
+
+  .news-list {
+    gap: var(--spacing-lg);
+  }
 }
 
+/* Маленькие мобильные (до 480px) */
+@media (max-width: 480px) {
+  .hero__title {
+    font-size: 1.6rem;
+  }
+
+  .hero__title::after {
+    font-size: 1.5rem;
+  }
+
+  .nature-gallery__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nature-gallery__img {
+    height: 200px;
+  }
+
+  .action-block__icon {
+    font-size: 3rem;
+  }
+
+  .info-section__title,
+  .news-section__title,
+  .nature-gallery__title {
+    font-size: 1.4rem;
+    flex-direction: column;
+  }
+}

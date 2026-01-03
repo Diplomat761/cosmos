@@ -1,16 +1,30 @@
-/* CSS Variables для ЖСК "Космос" */
+/* CSS Variables для ЖСК "Космос" - Природная тема */
 
 :root {
-  /* Цветовая палитра */
-  --color-primary: #2c5282;
-  --color-secondary: #4a5568;
-  --color-accent: #38b2ac;
-  --color-background: #f7fafc;
-  --color-success: #48bb78;
-  --color-error: #f56565;
+  /* Природная цветовая палитра */
+  --color-primary: #2d5a27;
+  --color-primary-light: #4a7c43;
+  --color-primary-dark: #1e3d1a;
+  --color-secondary: #3d5a3d;
+  --color-accent: #8fbc8f;
+  --color-accent-bright: #90EE90;
+  --color-background: #f0f7f0;
+  --color-background-warm: #f5f9f3;
+  --color-success: #228b22;
+  --color-error: #cd5c5c;
   --color-white: #ffffff;
-  --color-text: #2d3748;
-  --color-text-light: #718096;
+  --color-text: #2c3e2c;
+  --color-text-light: #5a6b5a;
+  --color-leaf: #6b8e23;
+  --color-bark: #8b4513;
+  --color-sky: #87ceeb;
+  --color-earth: #8b7355;
+  
+  /* Градиенты природы */
+  --gradient-forest: linear-gradient(135deg, #2d5a27 0%, #4a7c43 50%, #6b8e23 100%);
+  --gradient-morning: linear-gradient(180deg, #87ceeb 0%, #98fb98 50%, #228b22 100%);
+  --gradient-leaves: linear-gradient(135deg, #228b22 0%, #32cd32 50%, #90ee90 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(45, 90, 39, 0.85) 0%, rgba(45, 90, 39, 0.7) 100%);
   
   /* Отступы */
   --spacing-xs: 0.5rem;    /* 8px */
@@ -24,12 +38,14 @@
   --radius-sm: 0.25rem;    /* 4px */
   --radius-md: 0.5rem;     /* 8px */
   --radius-lg: 1rem;       /* 16px */
+  --radius-xl: 1.5rem;     /* 24px */
   
-  /* Тени */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  /* Тени с зеленоватым оттенком */
+  --shadow-sm: 0 1px 2px 0 rgba(45, 90, 39, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(45, 90, 39, 0.15);
+  --shadow-lg: 0 10px 15px -3px rgba(45, 90, 39, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(45, 90, 39, 0.25);
+  --shadow-glow: 0 0 20px rgba(144, 238, 144, 0.4);
   
   /* Переходы */
   --transition-fast: 0.15s ease;
@@ -42,4 +58,3 @@
   --breakpoint-desktop: 1024px;
   --breakpoint-large: 1280px;
 }
-
