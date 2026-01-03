@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЖСК "Космос" - Главная</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Шапка -->
+  <header class="header">
+    <div class="container header__container">
+      <a href="index.html" class="header__logo">
+        <i class="fas fa-building header__logo-icon"></i>
+        <span>ЖСК "Космос"</span>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link header__nav-link--active">Главная</a>
+        <a href="meters.html" class="header__nav-link">Передать показания</a>
+        <a href="requests.html" class="header__nav-link">Подать заявку</a>
+        <a href="#contacts" class="header__nav-link">Контакты</a>
+      </nav>
+      <button class="header__menu-toggle" aria-label="Открыть меню">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Мобильное меню -->
+  <div class="overlay"></div>
+  <nav class="mobile-menu">
+    <button class="mobile-menu__close" aria-label="Закрыть меню">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Главная</a>
+      <a href="meters.html" class="mobile-menu__link">Передать показания</a>
+      <a href="requests.html" class="mobile-menu__link">Подать заявку</a>
+      <a href="#contacts" class="mobile-menu__link">Контакты</a>
+    </div>
+  </nav>
+
+  <!-- Hero секция -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero__title">ЖСК "Космос" — наш общий дом</h1>
+      <p class="hero__address">
+        <i class="fas fa-map-marker-alt"></i> ул. Блюхера, 35, Новосибирск
+      </p>
+      <p class="hero__info">80 квартир | Благоустроенная территория | Активное ТСЖ</p>
+    </div>
+  </section>
+
+  <!-- Блоки-ссылки на основные функции -->
+  <section class="action-blocks">
+    <div class="container">
+      <div class="action-blocks__grid">
+        <a href="meters.html" class="action-block">
+          <div class="action-block__icon">
+            <i class="fas fa-tachometer-alt"></i>
+          </div>
+          <h2 class="action-block__title">Передать показания</h2>
+          <p class="action-block__description">
+            Холодная/горячая вода, электричество
+          </p>
+        </a>
+        <a href="requests.html" class="action-block">
+          <div class="action-block__icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h2 class="action-block__title">Подать заявку</h2>
+          <p class="action-block__description">
+            Вызов сантехника, электрика, обращение к председателю
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Информационный блок -->
+  <section class="info-section" id="contacts">
+    <div class="container">
+      <h2 class="info-section__title">Контактная информация</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3 class="info-card__title">Управляющая компания</h3>
+          <p class="info-card__text">
+            <strong>Телефон:</strong> <a href="tel:+73831234567" class="info-card__phone">+7 (383) 123-45-67</a><br>
+            <strong>Email:</strong> <a href="mailto:uk@kosmos.ru" class="info-card__phone">uk@kosmos.ru</a><br>
+            <strong>График работы:</strong> Пн-Пт: 9:00-18:00
+          </p>
+        </div>
+        <div class="info-card">
+          <h3 class="info-card__title">Экстренные службы</h3>
+          <p class="info-card__text">
+            <strong>Единая диспетчерская:</strong> <a href="tel:112" class="info-card__phone">112</a><br>
+            <strong>МЧС:</strong> <a href="tel:101" class="info-card__phone">101</a><br>
+            <strong>Полиция:</strong> <a href="tel:102" class="info-card__phone">102</a><br>
+            <strong>Скорая помощь:</strong> <a href="tel:103" class="info-card__phone">103</a>
+          </p>
+        </div>
+        <div class="info-card">
+          <h3 class="info-card__title">График работы правления</h3>
+          <p class="info-card__text">
+            <strong>Понедельник:</strong> 18:00-20:00<br>
+            <strong>Среда:</strong> 18:00-20:00<br>
+            <strong>Пятница:</strong> 18:00-20:00<br>
+            <strong>Суббота:</strong> 10:00-12:00
+          </p>
+        </div>
+        <div class="info-card">
+          <h3 class="info-card__title">Председатель ЖСК</h3>
+          <p class="info-card__text">
+            <strong>Телефон:</strong> <a href="tel:+79231185164" class="info-card__phone">+7 (923) 118-51-64</a><br>
+            <strong>Email:</strong> <a href="mailto:predsedatel@kosmos.ru" class="info-card__phone">predsedatel@kosmos.ru</a><br>
+            <strong>Прием:</strong> По предварительной записи
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Новостная лента -->
+  <section class="news-section">
+    <div class="container">
+      <h2 class="news-section__title">Последние новости</h2>
+      <div class="news-list">
+        <article class="news-item">
+          <div class="news-item__date">15.05.2024</div>
+          <h3 class="news-item__title">Отключение воды</h3>
+          <p class="news-item__text">
+            Уважаемые жильцы! 20 мая с 9:00 до 17:00 будет произведено плановое отключение холодной воды для проведения ремонтных работ на водопроводной сети.
+          </p>
+        </article>
+        <article class="news-item">
+          <div class="news-item__date">10.05.2024</div>
+          <h3 class="news-item__title">Собрание жильцов</h3>
+          <p class="news-item__text">
+            Приглашаем всех собственников квартир на общее собрание, которое состоится 20 мая в 18:00 в актовом зале. На повестке дня: вопросы благоустройства территории и выборы в правление.
+          </p>
+        </article>
+        <article class="news-item">
+          <div class="news-item__date">05.05.2024</div>
+          <h3 class="news-item__title">Благоустройство территории</h3>
+          <p class="news-item__text">
+            Завершены работы по благоустройству придомовой территории. Установлены новые скамейки и урны. Просим бережно относиться к общему имуществу.
+          </p>
+        </article>
+        <article class="news-item">
+          <div class="news-item__date">01.05.2024</div>
+          <h3 class="news-item__title">График передачи показаний</h3>
+          <p class="news-item__text">
+            Напоминаем, что показания счетчиков принимаются с 20 по 25 число каждого месяца. Пожалуйста, передавайте показания вовремя.
+          </p>
+        </article>
+        <article class="news-item">
+          <div class="news-item__date">25.04.2024</div>
+          <h3 class="news-item__title">Весенняя уборка</h3>
+          <p class="news-item__text">
+            Организуется субботник по уборке территории 12 мая в 10:00. Приглашаем всех желающих принять участие. Инвентарь будет предоставлен.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="container footer__container">
+      <div>
+        <div class="footer__name">Жилищно-строительный кооператив "Космос"</div>
+        <p class="footer__text">
+          г. Новосибирск, ул. Блюхера, 35
+        </p>
+        <p class="footer__text">
+          <strong>Председатель:</strong> <a href="tel:+79231185164" class="footer__link">+7 (923) 118-51-64</a>
+        </p>
+        <p class="footer__text">
+          <strong>Email:</strong> <a href="mailto:info@kosmos.ru" class="footer__link">info@kosmos.ru</a>
+        </p>
+      </div>
+      <nav class="footer__nav">
+        <a href="index.html" class="footer__nav-link">Главная</a>
+        <a href="meters.html" class="footer__nav-link">Передать показания</a>
+        <a href="requests.html" class="footer__nav-link">Подать заявку</a>
+        <a href="#contacts" class="footer__nav-link">Контакты</a>
+      </nav>
+    </div>
+    <div class="container">
+      <p class="footer__text" style="margin-top: var(--spacing-md); text-align: center;">
+        &copy; 2024 ЖСК "Космос". Все права защищены.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+

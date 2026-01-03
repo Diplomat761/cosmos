@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Передача показаний - ЖСК "Космос"</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Шапка -->
+  <header class="header">
+    <div class="container header__container">
+      <a href="index.html" class="header__logo">
+        <i class="fas fa-building header__logo-icon"></i>
+        <span>ЖСК "Космос"</span>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link">Главная</a>
+        <a href="meters.html" class="header__nav-link header__nav-link--active">Передать показания</a>
+        <a href="requests.html" class="header__nav-link">Подать заявку</a>
+        <a href="index.html#contacts" class="header__nav-link">Контакты</a>
+      </nav>
+      <button class="header__menu-toggle" aria-label="Открыть меню">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Мобильное меню -->
+  <div class="overlay"></div>
+  <nav class="mobile-menu">
+    <button class="mobile-menu__close" aria-label="Закрыть меню">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Главная</a>
+      <a href="meters.html" class="mobile-menu__link">Передать показания</a>
+      <a href="requests.html" class="mobile-menu__link">Подать заявку</a>
+      <a href="index.html#contacts" class="mobile-menu__link">Контакты</a>
+    </div>
+  </nav>
+
+  <!-- Хлебные крошки -->
+  <nav class="breadcrumbs">
+    <div class="container">
+      <ul class="breadcrumbs__list">
+        <li class="breadcrumbs__item">
+          <a href="index.html" class="breadcrumbs__link">Главная</a>
+        </li>
+        <li class="breadcrumbs__item">Передача показаний</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Основной контент -->
+  <main style="padding: var(--spacing-xl) var(--spacing-sm);">
+    <div class="container">
+      <h1 style="font-size: 2rem; margin-bottom: var(--spacing-lg); color: var(--color-primary); text-align: center;">
+        Передача показаний счетчиков
+      </h1>
+
+      <!-- Форма передачи показаний -->
+      <form class="form" id="metersForm">
+        <h2 class="form__title">Форма передачи показаний</h2>
+
+        <div class="form-group">
+          <label for="apartment" class="form-group__label form-group__label--required">Номер квартиры</label>
+          <select id="apartment" name="apartment" class="form-group__select" required>
+            <option value="">Выберите квартиру</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name" class="form-group__label form-group__label--required">ФИО</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            class="form-group__input" 
+            required 
+            placeholder="Иванов Иван Иванович"
+            pattern="[А-Яа-яЁё\s]{5,}"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="date" class="form-group__label form-group__label--required">Дата передачи</label>
+          <input 
+            type="date" 
+            id="date" 
+            name="date" 
+            class="form-group__input" 
+            required
+          >
+        </div>
+
+        <h3 style="font-size: 1.25rem; margin: var(--spacing-lg) 0 var(--spacing-md); color: var(--color-primary);">
+          Показания счетчиков
+        </h3>
+
+        <table class="meters-table">
+          <thead>
+            <tr>
+              <th>Тип счетчика</th>
+              <th>Предыдущие показания</th>
+              <th>Текущие показания</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Холодная вода</td>
+              <td id="prevColdWater">0</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="coldWater" 
+                  name="coldWater" 
+                  class="meters-table__input" 
+                  step="0.01" 
+                  min="0" 
+                  required
+                  placeholder="0.00"
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>Горячая вода</td>
+              <td id="prevHotWater">0</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="hotWater" 
+                  name="hotWater" 
+                  class="meters-table__input" 
+                  step="0.01" 
+                  min="0" 
+                  required
+                  placeholder="0.00"
+                >
+              </td>
+            </tr>
+            <tr>
+              <td>Электричество</td>
+              <td id="prevElectricity">0</td>
+              <td>
+                <input 
+                  type="number" 
+                  id="electricity" 
+                  name="electricity" 
+                  class="meters-table__input" 
+                  step="0.01" 
+                  min="0" 
+                  required
+                  placeholder="0.00"
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div id="calculation" style="display: none; margin-top: var(--spacing-md);"></div>
+
+        <div style="display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-lg); flex-wrap: wrap;">
+          <button type="button" id="calculateBtn" class="btn btn--accent">Рассчитать</button>
+          <button type="submit" id="submitBtn" class="btn btn--primary">Отправить</button>
+        </div>
+      </form>
+
+      <!-- История передач -->
+      <section class="history">
+        <h2 class="history__title">История передач</h2>
+        <div id="history"></div>
+      </section>
+
+      <!-- Справочная информация -->
+      <section class="info-section" style="margin-top: var(--spacing-xl);">
+        <div class="container">
+          <h2 class="info-section__title">Справочная информация</h2>
+          <div class="info-grid">
+            <div class="info-card">
+              <h3 class="info-card__title">Тарифы на услуги</h3>
+              <p class="info-card__text">
+                <strong>Холодная вода:</strong> 45₽/м³<br>
+                <strong>Горячая вода:</strong> 180₽/м³<br>
+                <strong>Электричество:</strong> 4.5₽/кВт⋅ч
+              </p>
+            </div>
+            <div class="info-card">
+              <h3 class="info-card__title">График передачи показаний</h3>
+              <p class="info-card__text">
+                Показания принимаются <strong>с 20 по 25 число</strong> каждого месяца.<br>
+                Пожалуйста, передавайте показания вовремя для корректного начисления платежей.
+              </p>
+            </div>
+            <div class="info-card">
+              <h3 class="info-card__title">Контакты</h3>
+              <p class="info-card__text">
+                <strong>Ответственный за прием показаний:</strong><br>
+                Телефон: <a href="tel:+73831234567" class="info-card__phone">+7 (383) 123-45-67</a><br>
+                Email: <a href="mailto:meters@kosmos.ru" class="info-card__phone">meters@kosmos.ru</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="container footer__container">
+      <div>
+        <div class="footer__name">Жилищно-строительный кооператив "Космос"</div>
+        <p class="footer__text">г. Новосибирск, ул. Блюхера, 35</p>
+      </div>
+      <nav class="footer__nav">
+        <a href="index.html" class="footer__nav-link">Главная</a>
+        <a href="meters.html" class="footer__nav-link">Передать показания</a>
+        <a href="requests.html" class="footer__nav-link">Подать заявку</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/meters.js"></script>
+</body>
+</html>
+
