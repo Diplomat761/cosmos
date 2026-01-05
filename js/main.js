@@ -98,6 +98,76 @@
     });
   });
 
+  // ============================================
+  // Интерактивный параллакс фон для Hero секции
+  // ============================================
+  const parallaxBg = document.getElementById('parallaxBg');
+  const heroSection = document.querySelector('.hero');
+  
+  /**
+   * Проверка, является ли устройство мобильным
+   */
+  function isMobileDevice() {
+    return window.matchMedia('(max-width: 768px)').matches || 
+           'ontouchstart' in window || 
+           navigator.maxTouchPoints > 0;
+  }
+  
+  /**
+   * Обработка движения мыши для эффекта параллакса
+   */
+  function handleParallax(e) {
+    // Отключаем эффект на мобильных устройствах
+    if (isMobileDevice() || !parallaxBg || !heroSection) {
+      return;
+    }
+    
+    // Получаем размеры hero секции
+    const rect = heroSection.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Вычисляем смещение курсора от центра
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    const deltaX = mouseX - centerX;
+    const deltaY = mouseY - centerY;
+    
+    // Вычисляем процент смещения (максимум ±30px)
+    const maxOffset = 30;
+    const offsetX = (deltaX / rect.width) * maxOffset;
+    const offsetY = (deltaY / rect.height) * maxOffset;
+    
+    // Применяем трансформацию (в противоположную сторону)
+    parallaxBg.style.transform = `translate(${-offsetX}px, ${-offsetY}px)`;
+  }
+  
+  /**
+   * Сброс позиции фона при выходе курсора из hero секции
+   */
+  function resetParallax() {
+    if (parallaxBg && !isMobileDevice()) {
+      parallaxBg.style.transform = 'translate(0, 0)';
+    }
+  }
+  
+  /**
+   * Обработка изменения размера окна
+   */
+  function handleResize() {
+    if (parallaxBg && !isMobileDevice()) {
+      // При изменении размера окна сбрасываем позицию
+      parallaxBg.style.transform = 'translate(0, 0)';
+    }
+  }
+  
+  // Инициализация параллакса только на десктопе
+  if (heroSection && !isMobileDevice()) {
+    heroSection.addEventListener('mousemove', handleParallax);
+    heroSection.addEventListener('mouseleave', resetParallax);
+    window.addEventListener('resize', handleResize);
+  }
+
   console.log('ЖСК "Космос": Основной JavaScript загружен');
 })();
 
