@@ -36,8 +36,8 @@ if (empty($data['apartment']) || !is_numeric($data['apartment']) || $data['apart
     $errors[] = 'Некорректный номер квартиры';
 }
 
-if (empty($data['name']) || strlen($data['name']) < 5) {
-    $errors[] = 'Некорректное ФИО';
+if (empty($data['name']) || strlen($data['name']) < 3) {
+    $errors[] = 'Некорректное имя';
 }
 
 if (empty($data['phone']) || strlen(preg_replace('/\D/', '', $data['phone'])) < 11) {

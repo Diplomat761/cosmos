@@ -172,11 +172,11 @@
       isValid = false;
     }
 
-    // Валидация ФИО
-    if (!nameInput || !nameInput.value.trim() || nameInput.value.trim().split(/\s+/).length < 2) {
+    // Валидация имени
+    if (!nameInput || !nameInput.value.trim() || nameInput.value.trim().length < 3) {
       isValid = false;
       if (nameInput) {
-        showError(nameInput, 'Введите ФИО (минимум 2 слова)');
+        showError(nameInput, 'Введите имя (минимум 2 символа)');
       }
     }
 

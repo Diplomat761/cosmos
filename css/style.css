@@ -215,12 +215,7 @@ body::before {
 
 /* Hero секция */
 .hero {
-  background: 
-    var(--gradient-overlay),
-    url('../images/forest-hero.svg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: var(--gradient-overlay);
   color: var(--color-white);
   padding: var(--spacing-2xl) var(--spacing-sm);
   text-align: center;
@@ -229,6 +224,44 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+/* Интерактивный параллакс фон */
+/* 
+ * ВАЖНО: Поместите ваше изображение природы в папку images/ с именем nature.jpg
+ * Или измените путь ниже на нужный (например, если изображение называется 25.jpg)
+ */
+.hero__parallax-bg {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: calc(100% + 60px);
+  height: calc(100% + 60px);
+  background-image: url('../images/25.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+/* Контейнер с контентом должен быть поверх фона */
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* На мобильных устройствах - статичный фон */
+@media (max-width: 768px) {
+  .hero__parallax-bg {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: none;
+  }
 }
 
 .hero::before {
