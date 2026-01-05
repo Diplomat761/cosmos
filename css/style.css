@@ -35,8 +35,8 @@ body {
   padding: 0 var(--spacing-sm);
 }
 
-/* Декоративный фоновый паттерн */
-body::before {
+/* Декоративный фоновый паттерн - отключен, используется фото в hero секции */
+/* body::before {
   content: '';
   position: fixed;
   top: 0;
@@ -50,7 +50,7 @@ body::before {
   opacity: 0.05;
   pointer-events: none;
   z-index: -1;
-}
+} */
 
 /* Шапка */
 .header {
@@ -230,20 +230,20 @@ body::before {
 /* Интерактивный параллакс фон */
 .hero__parallax-bg {
   position: absolute;
-  top: -30px;
-  left: -30px;
-  width: calc(100% + 60px);
-  height: calc(100% + 60px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('../images/25.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  z-index: -2;
+  z-index: -1;
   transition: transform 0.3s ease-out;
   will-change: transform;
 }
 
-/* Градиентный оверлей поверх изображения */
+/* Градиентный оверлей поверх изображения для читаемости текста */
 .hero::before {
   content: '';
   position: absolute;
@@ -252,14 +252,14 @@ body::before {
   width: 100%;
   height: 100%;
   background: var(--gradient-overlay);
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 
 /* Контейнер с контентом должен быть поверх фона */
 .hero .container {
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 /* На мобильных устройствах - статичный фон */
