@@ -24,7 +24,7 @@
   --gradient-forest: linear-gradient(135deg, #2d5a27 0%, #4a7c43 50%, #6b8e23 100%);
   --gradient-morning: linear-gradient(180deg, #87ceeb 0%, #98fb98 50%, #228b22 100%);
   --gradient-leaves: linear-gradient(135deg, #228b22 0%, #32cd32 50%, #90ee90 100%);
-  --gradient-overlay: linear-gradient(180deg, rgba(45, 90, 39, 0.1) 0%, rgba(45, 90, 39, 0.05) 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
   
   /* Отступы */
   --spacing-xs: 0.5rem;    /* 8px */
