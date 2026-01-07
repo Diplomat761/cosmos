@@ -1,6 +1,6 @@
 /* Основные стили для ЖСК "Космос" - Природная тема */
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+/* Шрифты Google Fonts удалены - используется только Century Schoolbook */
 @import url('variables.css');
 
 /* Сброс стилей и базовые настройки */
@@ -15,16 +15,50 @@ html {
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   background-color: var(--color-background);
   color: var(--color-text);
   line-height: 1.6;
-  font-size: 16px;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(144, 238, 144, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(107, 142, 35, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(34, 139, 34, 0.05) 0%, transparent 50%);
+  font-size: 19px !important;
+  /* Фон апельсинового дерева для всего сайта */
+  background-image: url('../images/orange-tree.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
   min-height: 100vh;
+}
+
+/* Затемнение фона для читаемости */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(45, 90, 39, 0.35) 0%,
+    rgba(107, 142, 35, 0.30) 50%,
+    rgba(30, 61, 26, 0.35) 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Увеличение насыщенности фонового изображения */
+html {
+  filter: saturate(1.3) contrast(1.1);
+}
+
+/* Контент поверх затемнения */
+header,
+section,
+footer,
+.container {
+  position: relative;
+  z-index: 1;
 }
 
 /* Контейнер */
@@ -76,7 +110,7 @@ body {
   gap: var(--spacing-xs);
   font-size: 1.5rem;
   font-weight: 700;
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   color: var(--color-primary);
   text-decoration: none;
 }
@@ -284,7 +318,7 @@ body {
 }
 
 .hero__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: var(--spacing-md);
@@ -333,7 +367,7 @@ body {
 }
 
 .nature-gallery__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.75rem;
   text-align: center;
   color: var(--color-primary);
@@ -475,7 +509,7 @@ body {
 }
 
 .action-block__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
@@ -498,7 +532,7 @@ body {
 }
 
 .info-section__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.75rem;
   margin-bottom: var(--spacing-lg);
   color: var(--color-primary);
@@ -549,7 +583,7 @@ body {
 }
 
 .info-card__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
@@ -580,7 +614,7 @@ body {
 }
 
 .news-section__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.75rem;
   margin-bottom: var(--spacing-lg);
   color: var(--color-primary);
@@ -603,29 +637,16 @@ body {
 }
 
 .news-item {
-  background: linear-gradient(135deg, var(--color-white) 0%, rgba(143, 188, 143, 0.08) 100%);
-  padding: var(--spacing-md);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  border-left: 4px solid var(--color-leaf);
-  transition: all var(--transition-base);
+  /* Стили переопределены глобальными стилями в конце файла */
   position: relative;
 }
 
 .news-item::after {
-  content: '🌱';
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 1.2rem;
-  opacity: 0.3;
+  /* Декоративный элемент удален - используются углы из арабского стиля */
+  display: none;
 }
 
-.news-item:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-left-color: var(--color-primary);
-}
+/* .news-item:hover - стили переопределены глобальными стилями в конце файла */
 
 .news-item__date {
   font-size: 0.875rem;
@@ -642,7 +663,7 @@ body {
 }
 
 .news-item__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.125rem;
   font-weight: 700;
   margin-bottom: var(--spacing-xs);
@@ -725,7 +746,7 @@ body {
 }
 
 .form__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.75rem;
   margin-bottom: var(--spacing-lg);
   color: var(--color-primary);
@@ -842,7 +863,7 @@ body {
 }
 
 .calculation__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
@@ -869,7 +890,7 @@ body {
 }
 
 .history__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.5rem;
   margin-bottom: var(--spacing-md);
   color: var(--color-primary);
@@ -990,7 +1011,7 @@ body {
 }
 
 .footer__name {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
@@ -1113,7 +1134,7 @@ body {
 }
 
 .modal__title {
-  font-family: 'Playfair Display', serif;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
   font-size: 1.5rem;
   margin-bottom: var(--spacing-md);
   color: var(--color-primary);
@@ -1177,6 +1198,171 @@ label:has(input[type="radio"]) {
 label:has(input[type="radio"]):hover {
   border-color: var(--color-primary);
   background-color: rgba(45, 90, 39, 0.02);
+}
+
+/* ============================================
+   ГЛОБАЛЬНЫЕ СТИЛИ ДЛЯ ВСЕГО САЙТА
+   Применяются ко всем страницам
+   ============================================ */
+
+/* Применение шрифта Century Schoolbook ко всем элементам */
+* {
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+}
+
+/* Базовые размеры и цвета шрифтов */
+body {
+  font-size: 19px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+  color: #1f1dbb !important;
+}
+
+p, span, div, a, button, input, textarea, select, label, li, td, th {
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+  color: #1f1dbb !important;
+}
+
+/* Применение стилей арабских плашек ко всем карточкам */
+.info-card,
+.action-block,
+.news-item {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 230, 211, 0.6) 0%,
+    rgba(255, 248, 240, 0.48) 100%
+  ) !important;
+  backdrop-filter: blur(6px) !important;
+  padding: var(--spacing-lg) !important;
+  border-radius: 20px !important;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(212, 165, 116, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+  border: 2px solid rgba(212, 165, 116, 0.5) !important;
+  transition: all var(--transition-base) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+/* Декоративные углы для всех плашек */
+.info-card::before,
+.action-block::before,
+.news-item::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 60px !important;
+  height: 60px !important;
+  border-top: 3px solid #d4a574 !important;
+  border-left: 3px solid #d4a574 !important;
+  border-radius: 10px 0 0 0 !important;
+  opacity: 0.6 !important;
+  z-index: 1 !important;
+}
+
+.info-card::after,
+.action-block::after,
+.news-item::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: 60px !important;
+  height: 60px !important;
+  border-bottom: 3px solid #d4a574 !important;
+  border-right: 3px solid #d4a574 !important;
+  border-radius: 0 0 10px 0 !important;
+  opacity: 0.6 !important;
+  z-index: 1 !important;
+}
+
+/* Анимированный оверлей для всех плашек */
+.info-card,
+.action-block,
+.news-item {
+  position: relative !important;
+}
+
+.info-card > *,
+.action-block > *,
+.news-item > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Эффекты при наведении */
+.info-card:hover,
+.action-block:hover,
+.news-item:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 4px rgba(212, 165, 116, 0.5),
+    0 0 30px rgba(212, 165, 116, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(212, 165, 116, 0.8) !important;
+}
+
+/* Размеры и цвета текста в карточках */
+.info-card__title,
+.action-block__title,
+.news-item__title {
+  font-size: 19px !important;
+  color: #1f1dbb !important;
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+  font-weight: 700 !important;
+}
+
+.info-card__text,
+.action-block__description,
+.news-item__text {
+  font-size: 19px !important;
+  color: #1f1dbb !important;
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+}
+
+.news-item__date {
+  font-size: 1.3125rem !important;
+  color: #1f1dbb !important;
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+}
+
+/* Заголовки секций */
+.info-section__title,
+.news-section__title,
+.nature-gallery__title {
+  font-size: 3.75rem !important;
+  color: #eef11b !important;
+  font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+  text-shadow: 
+    2px 2px 8px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Декоративные элементы в заголовках */
+.info-section__title::before,
+.info-section__title::after,
+.news-section__title::before,
+.news-section__title::after {
+  content: '✦' !important;
+  color: #d4a574 !important;
+  font-size: 2.25rem !important;
+  margin: 0 var(--spacing-sm) !important;
+  text-shadow: 0 0 10px rgba(212, 165, 116, 0.5) !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .info-section__title,
+  .news-section__title,
+  .nature-gallery__title {
+    font-size: 2.7rem !important;
+  }
 }
 
 /* Анимации появления */

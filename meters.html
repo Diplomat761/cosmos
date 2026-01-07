@@ -9,6 +9,166 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Стили для секции "Справочная информация" */
+    .info-section--arabic {
+      background-image: url('images/orange-tree.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      padding: var(--spacing-2xl) var(--spacing-sm);
+      filter: saturate(1.3) contrast(1.1);
+    }
+    
+    .info-section--arabic::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(45, 90, 39, 0.35) 0%,
+        rgba(107, 142, 35, 0.30) 50%,
+        rgba(30, 61, 26, 0.35) 100%
+      );
+      z-index: 0;
+    }
+    
+    .info-section--arabic .container {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .info-section--arabic .info-section__title {
+      color: #eef11b;
+      text-shadow: 
+        2px 2px 8px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.5);
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 3.75rem;
+      margin-bottom: var(--spacing-xl);
+      position: relative;
+      padding-bottom: var(--spacing-md);
+      text-align: center;
+    }
+    
+    .info-section--arabic .info-section__title::before,
+    .info-section--arabic .info-section__title::after {
+      content: '✦';
+      color: #d4a574;
+      font-size: 2.25rem;
+      margin: 0 var(--spacing-sm);
+      text-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+    }
+    
+    /* Плашки контактов в арабском стиле */
+    .info-section--arabic .info-card {
+      background: linear-gradient(
+        135deg,
+        rgba(245, 230, 211, 0.6) 0%,
+        rgba(255, 248, 240, 0.48) 100%
+      ) !important;
+      backdrop-filter: blur(6px) !important;
+      border-radius: 20px !important;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 3px rgba(212, 165, 116, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+      border: 2px solid rgba(212, 165, 116, 0.5) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    
+    .info-section--arabic .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 60px;
+      height: 60px;
+      border-top: 3px solid #d4a574;
+      border-left: 3px solid #d4a574;
+      border-radius: 10px 0 0 0;
+      opacity: 0.6;
+      z-index: 1;
+    }
+    
+    .info-section--arabic .info-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 60px;
+      border-bottom: 3px solid #d4a574;
+      border-right: 3px solid #d4a574;
+      border-radius: 0 0 10px 0;
+      opacity: 0.6;
+      z-index: 1;
+    }
+    
+    .info-section--arabic .info-card__title,
+    .info-section--arabic .info-card__text {
+      color: #1f1dbb !important;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 19px !important;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .info-section--arabic .info-card__phone {
+      color: #1f1dbb !important;
+    }
+    
+    /* Анимированный оверлей для карточек контактов */
+    .info-section--arabic .news-item__overlay {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(212, 165, 116, 0.2),
+        transparent
+      );
+      transition: left 0.6s ease;
+      z-index: 1;
+    }
+    
+    .info-section--arabic .info-card:hover .news-item__overlay {
+      left: 100%;
+    }
+    
+    .info-section--arabic .info-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 4px rgba(212, 165, 116, 0.5),
+        0 0 30px rgba(212, 165, 116, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border-color: rgba(212, 165, 116, 0.8);
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .info-section--arabic {
+        background-attachment: scroll;
+      }
+      
+      .info-section--arabic .info-section__title {
+        font-size: 2.7rem;
+      }
+      
+      .info-section--arabic .info-card {
+        padding: var(--spacing-md);
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Шапка -->
@@ -177,7 +337,7 @@
       </section>
 
       <!-- Справочная информация -->
-      <section class="info-section" style="margin-top: var(--spacing-xl);">
+      <section class="info-section info-section--arabic" style="margin-top: var(--spacing-xl);">
         <div class="container">
           <h2 class="info-section__title">Справочная информация</h2>
           <div class="info-grid">
@@ -188,6 +348,7 @@
                 <strong>Горячая вода:</strong> 180₽/м³<br>
                 <strong>Электричество:</strong> 4.5₽/кВт⋅ч
               </p>
+              <div class="news-item__overlay"></div>
             </div>
             <div class="info-card">
               <h3 class="info-card__title">График передачи показаний</h3>
@@ -195,6 +356,7 @@
                 Показания принимаются <strong>с 20 по 25 число</strong> каждого месяца.<br>
                 Пожалуйста, передавайте показания вовремя для корректного начисления платежей.
               </p>
+              <div class="news-item__overlay"></div>
             </div>
             <div class="info-card">
               <h3 class="info-card__title">Контакты</h3>
@@ -203,6 +365,7 @@
                 Телефон: <a href="tel:+73831234567" class="info-card__phone">+7 (383) 123-45-67</a><br>
                 Email: <a href="mailto:meters@kosmos.ru" class="info-card__phone">meters@kosmos.ru</a>
               </p>
+              <div class="news-item__overlay"></div>
             </div>
           </div>
         </div>
