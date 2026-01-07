@@ -493,7 +493,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
       border: 2px solid rgba(212, 165, 116, 0.5) !important;
       position: relative !important;
-      overflow: hidden !important;
+      overflow: visible !important; /* Изменено с hidden на visible для видимости иконок */
     }
     
     .action-blocks--arabic .action-block::before {
@@ -523,6 +523,119 @@
       opacity: 0.6;
       z-index: 1;
     }
+    
+    /* КРИТИЧНО: Переопределяем стили для иконок - убираем прозрачность */
+    .action-blocks--arabic .action-block__icon,
+    .action-blocks--arabic a.action-block .action-block__icon {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: var(--spacing-sm) !important;
+      margin-bottom: var(--spacing-md) !important;
+      position: relative !important;
+      z-index: 10 !important;
+      /* Полностью убираем градиент и прозрачность */
+      background: transparent !important;
+      background-image: none !important;
+      -webkit-background-clip: border-box !important;
+      -webkit-text-fill-color: #1f1dbb !important;
+      background-clip: border-box !important;
+      font-size: inherit !important;
+      width: auto !important;
+      height: auto !important;
+      min-height: 60px !important;
+      padding: var(--spacing-sm) !important;
+    }
+    
+    .action-blocks--arabic .action-block__icon i,
+    .action-blocks--arabic .action-block__icon i.fas,
+    .action-blocks--arabic a.action-block .action-block__icon i,
+    .action-blocks--arabic a.action-block .action-block__icon i.fas {
+      font-size: 2.5rem !important;
+      color: #1f1dbb !important;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+      /* КРИТИЧНО: Полностью убираем прозрачность */
+      -webkit-text-fill-color: #1f1dbb !important;
+      background: transparent !important;
+      background-image: none !important;
+      -webkit-background-clip: border-box !important;
+      background-clip: border-box !important;
+      display: inline-block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      font-family: "Font Awesome 6 Free" !important;
+      font-weight: 900 !important;
+      font-style: normal !important;
+      line-height: 1 !important;
+      width: auto !important;
+      height: auto !important;
+    }
+    
+     /* Стили для перекрещенных инструментов под прямым углом (как на изображении) */
+     .action-blocks--arabic .action-block__icon--tools,
+     .action-blocks--arabic a.action-block .action-block__icon--tools,
+     .action-blocks--arabic .action-block:hover .action-block__icon--tools {
+       position: relative !important;
+       width: 3.5rem !important;
+       height: 3.5rem !important;
+       display: flex !important;
+       align-items: center !important;
+       justify-content: center !important;
+       margin: 0 auto var(--spacing-md) auto !important;
+       /* КРИТИЧНО: БЕЗ поворота контейнера - инструменты перекрещены диагонально */
+       transform: none !important;
+       transform-origin: center center !important;
+       text-align: center !important;
+     }
+     
+     /* Гаечный ключ: поворот на -90° (было -45°, теперь -45° - 45° = -90°) */
+     .action-blocks--arabic .action-block__icon--tools i.fa-wrench,
+     .action-blocks--arabic a.action-block .action-block__icon--tools i.fa-wrench,
+     .action-blocks--arabic .action-block:hover .action-block__icon--tools i.fa-wrench {
+       position: absolute !important;
+       transform: rotate(-90deg) !important;
+       left: 50% !important;
+       top: 50% !important;
+       margin-left: -1.25rem !important;
+       margin-top: -1.25rem !important;
+       z-index: 2 !important;
+       transform-origin: center center !important;
+       /* Цвет как у иконки счетчиков */
+       color: #1f1dbb !important;
+       -webkit-text-fill-color: #1f1dbb !important;
+     }
+     
+     /* Отвертка: поворот на 0° (было +45°, теперь +45° - 45° = 0°) */
+     .action-blocks--arabic .action-block__icon--tools i.fa-screwdriver,
+     .action-blocks--arabic a.action-block .action-block__icon--tools i.fa-screwdriver,
+     .action-blocks--arabic .action-block:hover .action-block__icon--tools i.fa-screwdriver {
+       position: absolute !important;
+       transform: rotate(0deg) !important;
+       left: 50% !important;
+       top: 50% !important;
+       margin-left: -1.25rem !important;
+       margin-top: -1.25rem !important;
+       z-index: 1 !important;
+       transform-origin: center center !important;
+       /* Цвет как у иконки счетчиков */
+       color: #1f1dbb !important;
+       -webkit-text-fill-color: #1f1dbb !important;
+     }
+     
+     /* Альтернативный селектор для надежности */
+     .action-blocks--arabic .action-block__icon--tools i:first-child.fa-wrench,
+     .action-blocks--arabic a.action-block .action-block__icon--tools i:first-child.fa-wrench {
+       transform: rotate(-90deg) !important;
+       color: #1f1dbb !important;
+       -webkit-text-fill-color: #1f1dbb !important;
+     }
+     
+     .action-blocks--arabic .action-block__icon--tools i:last-child.fa-screwdriver,
+     .action-blocks--arabic a.action-block .action-block__icon--tools i:last-child.fa-screwdriver {
+       transform: rotate(0deg) !important;
+       color: #1f1dbb !important;
+       -webkit-text-fill-color: #1f1dbb !important;
+     }
     
     .action-blocks--arabic .action-block__title,
     .action-blocks--arabic .action-block__description {
@@ -789,7 +902,7 @@
       <h2 class="nature-gallery__title">Наша зелёная территория</h2>
       <div class="nature-gallery__grid">
         <div class="nature-gallery__item">
-          <img src="images/tree-alley.svg" 
+          <img src="images/Алея деревьев.JPG" 
                alt="Аллея деревьев" 
                class="nature-gallery__img"
                loading="lazy">
@@ -797,7 +910,7 @@
           <div class="news-item__overlay"></div>
         </div>
         <div class="nature-gallery__item">
-          <img src="images/nature-view.svg" 
+          <img src="images/Живая природа.JPG" 
                alt="Живая природа" 
                class="nature-gallery__img"
                loading="lazy">
@@ -805,7 +918,7 @@
           <div class="news-item__overlay"></div>
         </div>
         <div class="nature-gallery__item">
-          <img src="images/sunlight-leaves.svg" 
+          <img src="images/Солнечный свет.JPG" 
                alt="Солнце сквозь листья" 
                class="nature-gallery__img"
                loading="lazy">
@@ -813,7 +926,7 @@
           <div class="news-item__overlay"></div>
         </div>
         <div class="nature-gallery__item">
-          <img src="images/fresh-greenery.svg" 
+          <img src="images/Свежая зелень.JPG" 
                alt="Свежая зелень" 
                class="nature-gallery__img"
                loading="lazy">
@@ -830,7 +943,7 @@
       <div class="action-blocks__grid">
         <a href="meters.html" class="action-block">
           <div class="action-block__icon">
-            <i class="fas fa-tachometer-alt"></i>
+            <i class="fas fa-gauge-high"></i>
           </div>
           <h2 class="action-block__title">Передать показания</h2>
           <p class="action-block__description">
@@ -839,8 +952,9 @@
           <div class="news-item__overlay"></div>
         </a>
         <a href="requests.html" class="action-block">
-          <div class="action-block__icon">
-            <i class="fas fa-tools"></i>
+          <div class="action-block__icon action-block__icon--tools">
+            <i class="fas fa-wrench"></i>
+            <i class="fas fa-screwdriver"></i>
           </div>
           <h2 class="action-block__title">Подать заявку</h2>
           <p class="action-block__description">
@@ -978,5 +1092,85 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Принудительное применение стилей к иконкам action-block
+    function applyIconStyles() {
+      const iconContainers = document.querySelectorAll('.action-blocks--arabic .action-block__icon');
+      const icons = document.querySelectorAll('.action-blocks--arabic .action-block__icon i');
+      
+      // Применяем стили к контейнерам иконок
+      iconContainers.forEach(function(container) {
+        container.style.setProperty('background', 'transparent', 'important');
+        container.style.setProperty('background-image', 'none', 'important');
+        container.style.setProperty('-webkit-background-clip', 'border-box', 'important');
+        container.style.setProperty('-webkit-text-fill-color', '#1f1dbb', 'important');
+        container.style.setProperty('background-clip', 'border-box', 'important');
+        container.style.setProperty('display', 'flex', 'important');
+        container.style.setProperty('z-index', '10', 'important');
+        
+        // КРИТИЧНО: НЕ поворачиваем контейнер с инструментами - они перекрещены диагонально
+        if (container.classList.contains('action-block__icon--tools')) {
+          container.style.setProperty('transform', 'none', 'important');
+          container.style.setProperty('transform-origin', 'center center', 'important');
+          container.style.setProperty('position', 'relative', 'important');
+          container.style.setProperty('width', '3.5rem', 'important');
+          container.style.setProperty('height', '3.5rem', 'important');
+          container.style.setProperty('margin', '0 auto', 'important');
+          container.style.setProperty('text-align', 'center', 'important');
+        }
+      });
+      
+      // Применяем стили к самим иконкам
+      icons.forEach(function(icon) {
+        icon.style.setProperty('color', '#1f1dbb', 'important');
+        icon.style.setProperty('-webkit-text-fill-color', '#1f1dbb', 'important');
+        icon.style.setProperty('background', 'transparent', 'important');
+        icon.style.setProperty('background-image', 'none', 'important');
+        icon.style.setProperty('-webkit-background-clip', 'border-box', 'important');
+        icon.style.setProperty('background-clip', 'border-box', 'important');
+        icon.style.setProperty('opacity', '1', 'important');
+        icon.style.setProperty('visibility', 'visible', 'important');
+        icon.style.setProperty('display', 'inline-block', 'important');
+        icon.style.setProperty('font-size', '2.5rem', 'important');
+        icon.style.setProperty('font-family', '"Font Awesome 6 Free"', 'important');
+        icon.style.setProperty('font-weight', '900', 'important');
+        
+        // КРИТИЧНО: Сохраняем поворот и позиционирование для иконок инструментов - диагональный крест
+        const container = icon.closest('.action-block__icon--tools');
+        if (container) {
+          // Применяем абсолютное позиционирование для центрирования
+          icon.style.setProperty('position', 'absolute', 'important');
+          icon.style.setProperty('left', '50%', 'important');
+          icon.style.setProperty('top', '50%', 'important');
+          icon.style.setProperty('margin-left', '-1.25rem', 'important');
+          icon.style.setProperty('margin-top', '-1.25rem', 'important');
+          icon.style.setProperty('transform-origin', 'center center', 'important');
+          
+          if (icon.classList.contains('fa-wrench')) {
+            icon.style.setProperty('transform', 'rotate(-90deg)', 'important');
+            icon.style.setProperty('z-index', '2', 'important');
+          } else if (icon.classList.contains('fa-screwdriver')) {
+            icon.style.setProperty('transform', 'rotate(0deg)', 'important');
+            icon.style.setProperty('z-index', '1', 'important');
+          }
+        }
+      });
+      
+      console.log('Иконки обработаны:', iconContainers.length, 'контейнеров,', icons.length, 'иконок');
+    }
+    
+    // Применяем стили несколько раз с задержкой для надежности
+    document.addEventListener('DOMContentLoaded', function() {
+      applyIconStyles();
+      setTimeout(applyIconStyles, 100);
+      setTimeout(applyIconStyles, 500);
+    });
+    
+    // Также применяем после полной загрузки страницы
+    window.addEventListener('load', function() {
+      applyIconStyles();
+      setTimeout(applyIconStyles, 100);
+    });
+  </script>
 </body>
 </html>
