@@ -24,14 +24,36 @@
       font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
     }
     
-    /* Применение шрифта ко всем текстовым элементам */
+    /* Применение шрифта ко всем текстовым элементам (исключая иконки Font Awesome) */
     p, span, div, a, button, input, textarea, select, label, li, td, th {
       font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+    }
+    
+    /* Исключение иконок Font Awesome из применения шрифта Century Schoolbook */
+    i.fas, i.far, i.fab, i.fal, i.fad, i.fa,
+    [class*="fa-"], [class^="fa-"] {
+      font-family: "Font Awesome 6 Free" !important;
+      font-weight: 900 !important;
+      font-style: normal !important;
     }
     
     /* Применение шрифта к элементам с классами */
     .header__logo, .header__nav-link, .footer__name, .footer__text, .footer__nav-link {
       font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+    }
+    
+    /* Восстановление иконки логотипа */
+    .header__logo-icon,
+    .header__logo .fa-tree,
+    .header__logo i.fas.fa-tree {
+      font-family: "Font Awesome 6 Free" !important;
+      font-weight: 900 !important;
+      font-style: normal !important;
+      display: inline-block !important;
+      font-size: 2rem !important;
+      color: var(--color-leaf) !important;
+      -webkit-font-smoothing: antialiased !important;
+      -moz-osx-font-smoothing: grayscale !important;
     }
     
     /* Применение настроек ко всем новостным элементам */
