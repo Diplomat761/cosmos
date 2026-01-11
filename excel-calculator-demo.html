@@ -383,29 +383,46 @@
     function updateDateTime() {
       const now = new Date();
       
-      // Используем правильный расчет времени для Новосибирска (UTC+7)
-      // Получаем UTC время и добавляем смещение для Новосибирска
-      const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
-      const novosibirskOffset = 7 * 60 * 60 * 1000; // UTC+7
-      const novosibirskTimestamp = new Date(utcTime + novosibirskOffset);
+      // Используем Intl.DateTimeFormat для точного расчета времени по часовому поясу Новосибирска
+      const formatter = new Intl.DateTimeFormat('ru-RU', {
+        timeZone: 'Asia/Novosibirsk',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
       
-      const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-      const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+      const parts = formatter.formatToParts(now);
       
-      const dayOfWeek = daysOfWeek[novosibirskTimestamp.getUTCDay()];
-      const day = novosibirskTimestamp.getUTCDate();
-      const month = months[novosibirskTimestamp.getUTCMonth()];
-      const year = novosibirskTimestamp.getUTCFullYear();
+      // Извлекаем значения из форматированных частей
+      const dayOfWeek = parts.find(p => p.type === 'weekday').value;
+      const day = parts.find(p => p.type === 'day').value;
+      const month = parts.find(p => p.type === 'month').value;
+      const year = parts.find(p => p.type === 'year').value;
+      const hours = parts.find(p => p.type === 'hour').value;
+      const minutes = parts.find(p => p.type === 'minute').value;
+      const seconds = parts.find(p => p.type === 'second').value;
       
-      const hours = String(novosibirskTimestamp.getUTCHours()).padStart(2, '0');
-      const minutes = String(novosibirskTimestamp.getUTCMinutes()).padStart(2, '0');
-      const seconds = String(novosibirskTimestamp.getUTCSeconds()).padStart(2, '0');
+      // Форматируем месяц в родительный падеж
+      const monthsGenitive = {
+        'январь': 'января', 'февраль': 'февраля', 'март': 'марта', 'апрель': 'апреля',
+        'май': 'мая', 'июнь': 'июня', 'июль': 'июля', 'август': 'августа',
+        'сентябрь': 'сентября', 'октябрь': 'октября', 'ноябрь': 'ноября', 'декабрь': 'декабря'
+      };
+      const monthGenitive = monthsGenitive[month.toLowerCase()] || month;
+      
+      // Форматируем день недели с заглавной буквы
+      const dayOfWeekCapitalized = dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1);
       
       const dateDisplay = document.getElementById('dateDisplay');
       const timeDisplay = document.getElementById('timeDisplay');
       
       if (dateDisplay) {
-        dateDisplay.textContent = `${dayOfWeek}, ${day} ${month} ${year}`;
+        dateDisplay.textContent = `${dayOfWeekCapitalized}, ${day} ${monthGenitive} ${year}`;
       }
       
       if (timeDisplay) {
