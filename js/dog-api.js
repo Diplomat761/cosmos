@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  const DOG_API_URL = 'https://dog.ceo/api/breeds/image/random';
+  const DOG_API_URL = 'https://disk.yandex.ru/d/SAFWsIFSGPhzOQ';
   const dogImage = document.getElementById('dogImage');
   const dogLoader = document.getElementById('dogLoader');
   const dogError = document.getElementById('dogError');
