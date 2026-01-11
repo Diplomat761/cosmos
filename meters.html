@@ -249,8 +249,17 @@
 
       .header__menu-toggle {
         flex-shrink: 0;
-        padding: var(--spacing-xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
         font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+      }
+
+      .header__menu-toggle::after {
+        content: 'Меню';
+        font-size: 0.9rem;
+        font-weight: 600;
       }
     }
 
@@ -390,8 +399,8 @@
           <tbody>
             <tr>
               <td>Холодная вода</td>
-              <td id="prevColdWater">0</td>
-              <td>
+              <td data-label="Предыдущие показания" id="prevColdWater">0</td>
+              <td data-label="Текущие показания">
                 <input 
                   type="number" 
                   id="coldWater" 
@@ -406,8 +415,8 @@
             </tr>
             <tr>
               <td>Горячая вода</td>
-              <td id="prevHotWater">0</td>
-              <td>
+              <td data-label="Предыдущие показания" id="prevHotWater">0</td>
+              <td data-label="Текущие показания">
                 <input 
                   type="number" 
                   id="hotWater" 
@@ -422,8 +431,8 @@
             </tr>
             <tr>
               <td>Электричество</td>
-              <td id="prevElectricity">0</td>
-              <td>
+              <td data-label="Предыдущие показания" id="prevElectricity">0</td>
+              <td data-label="Текущие показания">
                 <input 
                   type="number" 
                   id="electricity" 

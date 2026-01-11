@@ -1305,8 +1305,17 @@
 
       .header__menu-toggle {
         flex-shrink: 0;
-        padding: var(--spacing-xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
         font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-xs);
+      }
+
+      .header__menu-toggle::after {
+        content: 'Меню';
+        font-size: 0.9rem;
+        font-weight: 600;
       }
     }
 

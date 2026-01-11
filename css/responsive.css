@@ -43,8 +43,17 @@
 
   .header__menu-toggle {
     flex-shrink: 0;
-    padding: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .header__menu-toggle::after {
+    content: 'Меню';
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 }
 
@@ -186,34 +195,73 @@
 
 /* Адаптивность таблицы с показаниями счетчиков */
 @media (max-width: 768px) {
-  /* Обертка для таблицы с горизонтальной прокруткой */
+  /* Вертикальная таблица в виде карточек */
   .meters-table-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 0 calc(-1 * var(--spacing-sm));
-    padding: 0 var(--spacing-sm);
+    margin: 0;
+    padding: 0;
   }
 
   .meters-table {
-    min-width: 500px;
-    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+    border: none;
+    background: transparent;
   }
 
-  .meters-table th,
+  .meters-table thead {
+    display: none;
+  }
+
+  .meters-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .meters-table tr {
+    display: block;
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--color-accent);
+  }
+
   .meters-table td {
-    padding: var(--spacing-xs) var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-xs) 0;
+    border: none;
+    text-align: left;
+  }
+
+  .meters-table td:before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
     font-size: 0.9rem;
   }
 
-  .meters-table th {
-    font-size: 0.85rem;
-    white-space: nowrap;
+  .meters-table td:first-child {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-accent);
+  }
+
+  .meters-table td:first-child:before {
+    display: none;
   }
 
   .meters-table__input {
-    font-size: 0.9rem;
-    padding: var(--spacing-xs);
-    min-width: 80px;
+    width: 100%;
+    font-size: 1rem;
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-xs);
   }
 }
 
@@ -247,24 +295,24 @@
   }
 
   /* Таблица с показаниями на маленьких экранах */
-  .meters-table {
-    min-width: 450px;
-    font-size: 0.85rem;
+  .meters-table tr {
+    padding: var(--spacing-sm);
   }
 
-  .meters-table th,
   .meters-table td {
-    padding: var(--spacing-xs);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
-  .meters-table th {
-    font-size: 0.8rem;
+  .meters-table td:first-child {
+    font-size: 1rem;
+  }
+
+  .meters-table td:before {
+    font-size: 0.85rem;
   }
 
   .meters-table__input {
-    font-size: 0.85rem;
-    padding: 6px;
-    min-width: 70px;
+    font-size: 0.9rem;
+    padding: var(--spacing-xs);
   }
 }
