@@ -802,10 +802,16 @@ footer,
 }
 
 /* Таблица счетчиков */
+/* Обертка для таблицы с показаниями (для горизонтальной прокрутки на мобильных) */
+.meters-table-wrapper {
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
 .meters-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0;
   background-color: var(--color-white);
   border-radius: var(--radius-lg);
   overflow: hidden;

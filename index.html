@@ -1264,17 +1264,73 @@
     }
 
     @media (max-width: 768px) {
+      .header__container {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
+      }
+
+      .header__logo {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .header__logo img {
+        width: 22px !important;
+        height: 22px !important;
+      }
+
       .header__datetime {
-        font-size: 12px;
-        margin-right: var(--spacing-xs);
+        font-size: 10px;
+        margin-left: var(--spacing-xs);
+        margin-right: auto;
+        flex-shrink: 1;
+        min-width: 0;
+      }
+
+      .header__datetime-date {
+        font-size: 10px;
+        white-space: normal;
+        line-height: 1.1;
       }
       
       .header__datetime-time {
-        font-size: 14px;
+        font-size: 12px;
       }
 
       .header__datetime-time-label {
+        font-size: 8px;
+        display: none; /* Скрываем подпись на очень маленьких экранах */
+      }
+
+      .header__menu-toggle {
+        flex-shrink: 0;
+        padding: var(--spacing-xs);
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header__container {
+        padding: var(--spacing-xs);
+      }
+
+      .header__logo span {
+        font-size: 0.95rem;
+      }
+
+      .header__datetime {
         font-size: 9px;
+        margin-left: var(--spacing-xs);
+        gap: 2px;
+      }
+
+      .header__datetime-date {
+        font-size: 9px;
+      }
+
+      .header__datetime-time {
+        font-size: 11px;
       }
     }
   </style>

@@ -1,5 +1,77 @@
 /* Адаптивные стили для ЖСК "Космос" - Природная тема */
 
+/* Мобильные устройства (до 768px) */
+@media (max-width: 768px) {
+  .header__container {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .header__logo {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .header__logo img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .header__datetime {
+    font-size: 10px;
+    margin-left: var(--spacing-xs);
+    margin-right: auto;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .header__datetime-date {
+    font-size: 10px;
+    white-space: normal;
+    line-height: 1.1;
+  }
+  
+  .header__datetime-time {
+    font-size: 12px;
+  }
+
+  .header__datetime-time-label {
+    font-size: 8px;
+    display: none; /* Скрываем подпись на очень маленьких экранах */
+  }
+
+  .header__menu-toggle {
+    flex-shrink: 0;
+    padding: var(--spacing-xs);
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__container {
+    padding: var(--spacing-xs);
+  }
+
+  .header__logo span {
+    font-size: 0.95rem;
+  }
+
+  .header__datetime {
+    font-size: 9px;
+    margin-left: var(--spacing-xs);
+    gap: 2px;
+  }
+
+  .header__datetime-date {
+    font-size: 9px;
+  }
+
+  .header__datetime-time {
+    font-size: 11px;
+  }
+}
+
 /* Планшеты (768px и выше) */
 @media (min-width: 768px) {
   .container {
@@ -112,6 +184,39 @@
   }
 }
 
+/* Адаптивность таблицы с показаниями счетчиков */
+@media (max-width: 768px) {
+  /* Обертка для таблицы с горизонтальной прокруткой */
+  .meters-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 calc(-1 * var(--spacing-sm));
+    padding: 0 var(--spacing-sm);
+  }
+
+  .meters-table {
+    min-width: 500px;
+    font-size: 0.9rem;
+  }
+
+  .meters-table th,
+  .meters-table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.9rem;
+  }
+
+  .meters-table th {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .meters-table__input {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs);
+    min-width: 80px;
+  }
+}
+
 /* Маленькие мобильные (до 480px) */
 @media (max-width: 480px) {
   .hero__title {
@@ -139,5 +244,27 @@
   .nature-gallery__title {
     font-size: 1.4rem;
     flex-direction: column;
+  }
+
+  /* Таблица с показаниями на маленьких экранах */
+  .meters-table {
+    min-width: 450px;
+    font-size: 0.85rem;
+  }
+
+  .meters-table th,
+  .meters-table td {
+    padding: var(--spacing-xs);
+    font-size: 0.85rem;
+  }
+
+  .meters-table th {
+    font-size: 0.8rem;
+  }
+
+  .meters-table__input {
+    font-size: 0.85rem;
+    padding: 6px;
+    min-width: 70px;
   }
 }
