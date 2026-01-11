@@ -132,6 +132,59 @@
       color: #d4a574;
       font-weight: bold;
     }
+
+    /* Информер даты и времени в шапке */
+    .header__datetime {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      color: #2d5a27 !important;
+      font-size: 14px;
+      line-height: 1.2;
+      white-space: nowrap;
+      margin-left: var(--spacing-md);
+    }
+
+    .header__datetime-date {
+      font-weight: 600;
+      color: #2d5a27 !important;
+    }
+
+    .header__datetime-time-wrapper {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .header__datetime-time {
+      font-weight: 700;
+      font-size: 16px;
+      color: #2d5a27 !important;
+    }
+
+    .header__datetime-time-label {
+      font-size: 10px;
+      color: #2d5a27 !important;
+      opacity: 0.8;
+      font-weight: 400;
+    }
+
+      @media (max-width: 768px) {
+      .header__datetime {
+        font-size: 12px;
+        margin-right: var(--spacing-xs);
+      }
+      
+      .header__datetime-time {
+        font-size: 14px;
+      }
+
+      .header__datetime-time-label {
+        font-size: 9px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -142,6 +195,13 @@
         <img src="images\Iconka JSK.png" alt="" style="width:28px; height:28px;">
         <span>ЖСК "Космос"</span>
       </a>
+      <div class="header__datetime" id="headerDateTime">
+        <span class="header__datetime-date" id="dateDisplay"></span>
+        <div class="header__datetime-time-wrapper">
+          <span class="header__datetime-time" id="timeDisplay"></span>
+          <span class="header__datetime-time-label">(время Новосибирское)</span>
+        </div>
+      </div>
       <nav class="header__nav">
         <a href="index.html" class="header__nav-link">Главная</a>
         <a href="meters.html" class="header__nav-link">Передать показания</a>
@@ -318,6 +378,46 @@
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
     })();
+
+    // Информер даты и времени для Новосибирска (UTC+7, Asia/Novosibirsk)
+    function updateDateTime() {
+      const now = new Date();
+      
+      // Используем правильный расчет времени для Новосибирска (UTC+7)
+      // Получаем UTC время и добавляем смещение для Новосибирска
+      const utcTime = now.getTime() + (now.getTimezoneOffset() * 60 * 1000);
+      const novosibirskOffset = 7 * 60 * 60 * 1000; // UTC+7
+      const novosibirskTimestamp = new Date(utcTime + novosibirskOffset);
+      
+      const daysOfWeek = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+      const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+      
+      const dayOfWeek = daysOfWeek[novosibirskTimestamp.getUTCDay()];
+      const day = novosibirskTimestamp.getUTCDate();
+      const month = months[novosibirskTimestamp.getUTCMonth()];
+      const year = novosibirskTimestamp.getUTCFullYear();
+      
+      const hours = String(novosibirskTimestamp.getUTCHours()).padStart(2, '0');
+      const minutes = String(novosibirskTimestamp.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(novosibirskTimestamp.getUTCSeconds()).padStart(2, '0');
+      
+      const dateDisplay = document.getElementById('dateDisplay');
+      const timeDisplay = document.getElementById('timeDisplay');
+      
+      if (dateDisplay) {
+        dateDisplay.textContent = `${dayOfWeek}, ${day} ${month} ${year}`;
+      }
+      
+      if (timeDisplay) {
+        timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+      }
+    }
+
+    // Обновляем время сразу и затем каждую секунду
+    document.addEventListener('DOMContentLoaded', () => {
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+    });
   </script>
 </body>
 </html>
