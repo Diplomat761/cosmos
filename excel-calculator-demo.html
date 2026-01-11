@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Интеграция Excel-калькулятора - ЖСК "Космос"</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Стили для калькулятора */
+    .excel-calculator {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--spacing-xl);
+    }
+
+    .excel-calculator__title {
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 2.5rem;
+      color: #1f1dbb !important;
+      text-align: center;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .excel-calculator__description {
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 19px !important;
+      color: #1f1dbb !important;
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-md);
+      background: linear-gradient(
+        135deg,
+        rgba(245, 230, 211, 0.6) 0%,
+        rgba(255, 248, 240, 0.48) 100%
+      );
+      border-radius: 10px;
+    }
+
+    .excel-calculator__form {
+      background: linear-gradient(
+        135deg,
+        rgba(245, 230, 211, 0.6) 0%,
+        rgba(255, 248, 240, 0.48) 100%
+      );
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      padding: var(--spacing-xl);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 3px rgba(212, 165, 116, 0.3);
+      border: 2px solid rgba(212, 165, 116, 0.5);
+    }
+
+    .excel-calculator__result {
+      margin-top: var(--spacing-xl);
+      padding: var(--spacing-lg);
+      background: linear-gradient(
+        135deg,
+        rgba(212, 165, 116, 0.8) 0%,
+        rgba(139, 111, 71, 0.8) 100%
+      );
+      border-radius: 15px;
+      text-align: center;
+      display: none;
+    }
+
+    .excel-calculator__result.show {
+      display: block;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .excel-calculator__result-label {
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 1.5rem;
+      color: white;
+      margin-bottom: var(--spacing-sm);
+      font-weight: 600;
+    }
+
+    .excel-calculator__result-value {
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: 700;
+    }
+
+    .excel-calculator__info {
+      margin-top: var(--spacing-xl);
+      padding: var(--spacing-md);
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L', 'New Century Schoolbook', serif !important;
+      font-size: 19px !important;
+      color: #1f1dbb !important;
+    }
+
+    .excel-calculator__info-title {
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .excel-calculator__info-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .excel-calculator__info-list li {
+      margin-bottom: var(--spacing-xs);
+      padding-left: var(--spacing-md);
+      position: relative;
+    }
+
+    .excel-calculator__info-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #d4a574;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Шапка -->
+  <header class="header">
+    <div class="container header__container">
+      <a href="index.html" class="header__logo">
+        <img src="images\Iconka JSK.png" alt="" style="width:28px; height:28px;">
+        <span>ЖСК "Космос"</span>
+      </a>
+      <nav class="header__nav">
+        <a href="index.html" class="header__nav-link">Главная</a>
+        <a href="meters.html" class="header__nav-link">Передать показания</a>
+        <a href="requests.html" class="header__nav-link">Подать заявку</a>
+        <a href="#contacts" class="header__nav-link">Контакты</a>
+      </nav>
+      <button class="header__menu-toggle" aria-label="Открыть меню">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Мобильное меню -->
+  <div class="overlay"></div>
+  <nav class="mobile-menu">
+    <button class="mobile-menu__close" aria-label="Закрыть меню">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-menu__nav">
+      <a href="index.html" class="mobile-menu__link">Главная</a>
+      <a href="meters.html" class="mobile-menu__link">Передать показания</a>
+      <a href="requests.html" class="mobile-menu__link">Подать заявку</a>
+      <a href="#contacts" class="mobile-menu__link">Контакты</a>
+    </div>
+  </nav>
+
+  <!-- Основной контент -->
+  <main style="padding: var(--spacing-xl) var(--spacing-sm);">
+    <div class="container">
+      <div class="excel-calculator">
+        <h1 class="excel-calculator__title">Excel-калькулятор</h1>
+        <p class="excel-calculator__description">
+          Демонстрация интеграции Excel-формул на сайт. Введите данные для расчета.
+        </p>
+
+        <form class="excel-calculator__form form" id="excelCalculatorForm">
+          <h2 class="form__title">Ввод данных</h2>
+
+          <div class="form-group">
+            <label for="data1" class="form-group__label form-group__label--required">
+              Данные 1 (A1)
+            </label>
+            <input 
+              type="number" 
+              id="data1" 
+              name="data1" 
+              class="form-group__input" 
+              step="0.01"
+              required 
+              placeholder="Введите значение"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="data2" class="form-group__label form-group__label--required">
+              Данные 2 (A2)
+            </label>
+            <input 
+              type="number" 
+              id="data2" 
+              name="data2" 
+              class="form-group__input" 
+              step="0.01"
+              required 
+              placeholder="Введите значение"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="data3" class="form-group__label form-group__label--required">
+              Данные 3 (A3)
+            </label>
+            <input 
+              type="number" 
+              id="data3" 
+              name="data3" 
+              class="form-group__input" 
+              step="0.01"
+              required 
+              placeholder="Введите значение"
+            >
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--large" style="width: 100%; margin-top: var(--spacing-md);">
+            <i class="fas fa-calculator"></i> Рассчитать
+          </button>
+        </form>
+
+        <div class="excel-calculator__result" id="calculatorResult">
+          <div class="excel-calculator__result-label">Результат (A4):</div>
+          <div class="excel-calculator__result-value" id="resultValue">0</div>
+        </div>
+
+        <div class="excel-calculator__info">
+          <div class="excel-calculator__info-title">Информация о калькуляторе:</div>
+          <ul class="excel-calculator__info-list">
+            <li>Вариант 1 (Фронтенд): Простые формулы выполняются на JavaScript</li>
+            <li>Вариант 2 (Бэкенд): Сложные формулы обрабатываются на сервере</li>
+            <li>Формула примера: (A1 + A2) * A3</li>
+            <li>Результат отображается в ячейке A4</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Футер -->
+  <footer class="footer">
+    <div class="container footer__container">
+      <div>
+        <div class="footer__name">Жилищно-строительный кооператив "Космос"</div>
+        <p class="footer__text">г. Новосибирск, ул. Блюхера, 35</p>
+      </div>
+      <nav class="footer__nav">
+        <a href="index.html" class="footer__nav-link">Главная</a>
+        <a href="meters.html" class="footer__nav-link">Передать показания</a>
+        <a href="requests.html" class="footer__nav-link">Подать заявку</a>
+        <a href="#contacts" class="footer__nav-link">Контакты</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    /**
+     * ВАРИАНТ 1: Фронтенд-реализация (для простых формул)
+     * 
+     * Этот скрипт дублирует логику формул из Excel на JavaScript.
+     * Подходит для простых арифметических операций.
+     */
+
+    (function() {
+      'use strict';
+
+      const form = document.getElementById('excelCalculatorForm');
+      const resultDiv = document.getElementById('calculatorResult');
+      const resultValue = document.getElementById('resultValue');
+
+      /**
+       * Функция вычисления результата (дублирует формулу из Excel)
+       * 
+       * В Excel: A4 = (A1 + A2) * A3
+       * На JavaScript: (data1 + data2) * data3
+       * 
+       * ВАЖНО: Эту функцию нужно адаптировать под ваши формулы из Excel!
+       */
+      function calculateResult(data1, data2, data3) {
+        // Пример формулы: (A1 + A2) * A3
+        // Замените эту логику на вашу формулу из Excel
+        const result = (data1 + data2) * data3;
+        
+        return result;
+      }
+
+      /**
+       * Обработчик отправки формы
+       */
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Получаем значения из формы
+        const data1 = parseFloat(document.getElementById('data1').value) || 0;
+        const data2 = parseFloat(document.getElementById('data2').value) || 0;
+        const data3 = parseFloat(document.getElementById('data3').value) || 0;
+
+        // Вычисляем результат
+        const result = calculateResult(data1, data2, data3);
+
+        // Отображаем результат
+        resultValue.textContent = result.toFixed(2);
+        resultDiv.classList.add('show');
+
+        // Прокручиваем к результату
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    })();
+  </script>
+</body>
+</html>
+

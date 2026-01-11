@@ -277,6 +277,9 @@ async function init() {
   // Устанавливаем обработчики событий
   setupEventListeners();
   
+  const randomIndex = Math.floor(Math.random() * state.photos.length);
+  state.currentIndex = randomIndex;
+  
   // Загружаем первую фотографию
   loadPhoto(state.currentIndex);
   
