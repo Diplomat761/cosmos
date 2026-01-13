@@ -2,11 +2,9 @@
 /**
  * Обработка формы подачи заявок
  * ЖСК "Космос"
- * 
- * ВНИМАНИЕ: Это заглушка для демонстрации.
- * В реальном проекте здесь должна быть обработка данных,
- * сохранение в базу данных, отправка уведомлений и т.д.
  */
+
+require_once __DIR__ . '/config.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -59,41 +57,111 @@ if (!empty($errors)) {
     exit;
 }
 
-// Генерация номера заявки (если не передан)
-if (empty($data['number'])) {
+try {
+    $db = getDB();
+    
+    // Находим пользователя по номеру квартиры
+    $stmt = $db->prepare("SELECT id FROM users WHERE apartment_number = ? AND status = 'active'");
+    $stmt->execute([$data['apartment']]);
+    $user = $stmt->fetch();
+    
+    if (!$user) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Квартира не найдена или неактивна']);
+        exit;
+    }
+    
+    $apartmentId = $user['id'];
+    
+    // Генерация уникального номера заявки
     $year = date('Y');
-    // В реальном проекте номер должен браться из базы данных
-    $counter = rand(1000, 9999);
-    $data['number'] = "ЖСК-{$year}-{$counter}";
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM requests WHERE request_number LIKE ?");
+    $stmt->execute(["ЖСК-{$year}-%"]);
+    $count = $stmt->fetch()['count'];
+    $requestNumber = "ЖСК-{$year}-" . str_pad($count + 1, 4, '0', STR_PAD_LEFT);
+    
+    // Проверяем уникальность номера
+    $stmt = $db->prepare("SELECT id FROM requests WHERE request_number = ?");
+    $stmt->execute([$requestNumber]);
+    if ($stmt->fetch()) {
+        $requestNumber = "ЖСК-{$year}-" . str_pad($count + 2, 4, '0', STR_PAD_LEFT);
+    }
+    
+    // Обработка загруженного файла (если есть)
+    $photoPath = null;
+    if (!empty($data['photo'])) {
+        // Создаем директорию для загрузок, если её нет
+        $uploadDir = __DIR__ . '/../uploads/requests/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        
+        // Декодируем base64 изображение
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $data['photo']));
+        if ($imageData !== false) {
+            $photoFileName = uniqid('request_', true) . '.jpg';
+            $photoPath = 'uploads/requests/' . $photoFileName;
+            $fullPath = $uploadDir . $photoFileName;
+            
+            if (file_put_contents($fullPath, $imageData)) {
+                $photoPath = $photoPath;
+            } else {
+                error_log("Не удалось сохранить фото заявки: {$fullPath}");
+            }
+        }
+    }
+    
+    // Сохраняем заявку в базу данных
+    $stmt = $db->prepare("
+        INSERT INTO requests 
+        (apartment_id, request_number, type, fio, phone, subject, description, photo, urgency, desired_time, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'new')
+    ");
+    
+    $stmt->execute([
+        $apartmentId,
+        $requestNumber,
+        $data['requestType'],
+        $data['name'],
+        $data['phone'],
+        $data['subject'],
+        $data['description'],
+        $photoPath,
+        !empty($data['urgency']) ? 1 : 0,
+        $data['desiredTime'] ?? null
+    ]);
+    
+    $requestId = $db->lastInsertId();
+    
+    // Логирование успешной операции
+    error_log("Заявка сохранена: ID={$requestId}, Номер={$requestNumber}, Квартира={$data['apartment']}");
+    
+    // Успешный ответ
+    http_response_code(200);
+    echo json_encode([
+        'success' => true,
+        'message' => 'Заявка успешно принята',
+        'data' => [
+            'id' => $requestId,
+            'number' => $requestNumber,
+            'status' => 'new'
+        ]
+    ]);
+    
+} catch (PDOException $e) {
+    error_log("Ошибка БД при сохранении заявки: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'Ошибка сервера',
+        'message' => 'Не удалось сохранить заявку. Попробуйте позже.'
+    ]);
+} catch (Exception $e) {
+    error_log("Ошибка при сохранении заявки: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        'error' => 'Ошибка сервера',
+        'message' => 'Произошла ошибка при обработке запроса.'
+    ]);
 }
-
-// Обработка загруженного файла (если есть)
-$photoPath = null;
-if (!empty($data['photo'])) {
-    // В реальном проекте здесь должна быть обработка base64 изображения
-    // и сохранение файла на сервере
-    $photoPath = 'uploads/' . uniqid() . '.jpg';
-    // file_put_contents($photoPath, base64_decode($data['photo']));
-}
-
-// Здесь должна быть логика сохранения в базу данных
-// Например:
-// $db = new PDO(...);
-// $stmt = $db->prepare("INSERT INTO requests ...");
-// $stmt->execute([...]);
-
-// Логирование (для отладки)
-error_log('Получена заявка: ' . json_encode($data, JSON_UNESCAPED_UNICODE));
-
-// Успешный ответ
-http_response_code(200);
-echo json_encode([
-    'success' => true,
-    'message' => 'Заявка успешно принята',
-    'data' => [
-        'number' => $data['number'],
-        'status' => 'accepted'
-    ]
-]);
 ?>
 

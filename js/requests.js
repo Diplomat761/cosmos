@@ -26,15 +26,10 @@
   let requestCounter = parseInt(localStorage.getItem('jsk_kosmos_request_counter') || '0');
 
   // Инициализация
-  function init() {
-    // Заполнение выпадающего списка квартир
+  async function init() {
+    // Заполнение выпадающего списка квартир из БД
     if (apartmentSelect) {
-      for (let i = 1; i <= 80; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i;
-        apartmentSelect.appendChild(option);
-      }
+      await loadApartments();
     }
 
     // Маска для телефона
@@ -287,33 +282,52 @@
     // Сохранение в localStorage
     saveToHistory(data);
 
-    // Эмуляция отправки на сервер
-    setTimeout(() => {
-      console.log('Данные заявки:', data);
-      
-      // Показываем модальное окно с подтверждением
-      showModal(
-        'Заявка принята!', 
-        `Ваша заявка зарегистрирована под номером <strong>${data.number}</strong>. Мы свяжемся с вами в ближайшее время.`
-      );
-      
-      // Сброс формы
-      form.reset();
-      if (filePreview) {
-        filePreview.innerHTML = '';
-      }
-      if (charCounter) {
-        charCounter.textContent = '0 / 500 символов';
-      }
+    // Отправка на сервер
+    fetch('php/submit_request.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        // Показываем модальное окно с подтверждением
+        showModal(
+          'Заявка принята!', 
+          `Ваша заявка зарегистрирована под номером <strong>${result.data.number}</strong>. Мы свяжемся с вами в ближайшее время.`
+        );
+        
+        // Сброс формы
+        form.reset();
+        if (filePreview) {
+          filePreview.innerHTML = '';
+        }
+        if (charCounter) {
+          charCounter.textContent = '0 / 500 символов';
+        }
 
-      // Обновление истории
-      loadRequestsHistory();
-
+        // Обновление истории
+        loadRequestsHistory();
+      } else {
+        alert('Ошибка: ' + (result.message || result.error || 'Не удалось отправить заявку'));
+      }
+      
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Отправить заявку';
       }
-    }, 1000);
+    })
+    .catch(error => {
+      console.error('Ошибка отправки заявки:', error);
+      alert('Произошла ошибка при отправке заявки. Попробуйте позже.');
+      
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить заявку';
+      }
+    });
   }
 
   /**
@@ -414,6 +428,58 @@
         modal.remove();
       }
     });
+  }
+
+  /**
+   * Загрузка списка квартир из БД
+   */
+  async function loadApartments() {
+    if (!apartmentSelect) return;
+    
+    try {
+      // Показываем индикатор загрузки
+      apartmentSelect.innerHTML = '<option value="">Загрузка...</option>';
+      apartmentSelect.disabled = true;
+      
+      const response = await fetch('php/api/apartments.php?active=true');
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        // Очищаем список
+        apartmentSelect.innerHTML = '<option value="">Выберите квартиру</option>';
+        
+        // Заполняем список квартирами из БД
+        result.data.forEach(apt => {
+          const option = document.createElement('option');
+          option.value = apt.number;
+          
+          // Формируем текст опции: "Квартира №X" или "Квартира №X - ФИО"
+          let text = `Квартира №${apt.number}`;
+          if (apt.fio) {
+            text += ` - ${apt.fio}`;
+          }
+          option.textContent = text;
+          
+          apartmentSelect.appendChild(option);
+        });
+        
+        apartmentSelect.disabled = false;
+      } else {
+        throw new Error('Не удалось загрузить список квартир');
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки квартир:', error);
+      
+      // Fallback: заполняем список от 1 до 80
+      apartmentSelect.innerHTML = '<option value="">Выберите квартиру</option>';
+      for (let i = 1; i <= 80; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = `Квартира №${i}`;
+        apartmentSelect.appendChild(option);
+      }
+      apartmentSelect.disabled = false;
+    }
   }
 
   // Обновление истории при изменении квартиры

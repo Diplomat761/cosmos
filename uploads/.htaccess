@@ -1,0 +1,13 @@
+# Защита директории uploads
+# Запрещаем выполнение PHP скриптов в директории загрузок
+
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Разрешаем только изображения и документы
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf|doc|docx)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
