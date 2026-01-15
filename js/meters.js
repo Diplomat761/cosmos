@@ -6,11 +6,11 @@
 (function() {
   'use strict';
 
-  // Конфигурация тарифов
-  const TARIFFS = {
-    coldWater: 45,      // руб/м³
-    hotWater: 180,      // руб/м³
-    electricity: 4.5    // руб/кВт⋅ч
+  // Конфигурация тарифов (загружаются из БД)
+  let TARIFFS = {
+    coldWater: 50,      // руб/м³ (по умолчанию)
+    hotWater: 50,       // руб/м³ (по умолчанию)
+    electricity: 5.0    // руб/кВт⋅ч (по умолчанию)
   };
 
   // Элементы формы
@@ -27,7 +27,7 @@
   const historyDiv = document.getElementById('history');
 
   // Инициализация
-  function init() {
+  async function init() {
     // Установка текущей даты по умолчанию
     if (dateInput) {
       const today = new Date().toISOString().split('T')[0];
@@ -35,14 +35,12 @@
       dateInput.max = today; // Ограничение: не будущие даты
     }
 
-    // Заполнение выпадающего списка квартир
+    // Загрузка тарифов из БД
+    await loadTariffs();
+
+    // Заполнение выпадающего списка квартир из БД
     if (apartmentSelect) {
-      for (let i = 1; i <= 80; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i;
-        apartmentSelect.appendChild(option);
-      }
+      await loadApartments();
     }
 
     // Загрузка предыдущих показаний
@@ -272,36 +270,55 @@
       timestamp: new Date().toISOString()
     };
 
-    // Сохранение в localStorage
-    saveToHistory(data);
+    // Отправка на сервер
+    fetch('php/submit_meters.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        // Сохранение в localStorage для истории
+        saveToHistory(data);
+        
+        // Показываем модальное окно с подтверждением
+        showModal('Показания успешно переданы!', 
+          `Ваши показания за ${data.date} приняты и отправлены на проверку. Спасибо!`);
+        
+        // Сброс формы
+        form.reset();
+        if (dateInput) {
+          const today = new Date().toISOString().split('T')[0];
+          dateInput.value = today;
+        }
+        if (calculationDiv) {
+          calculationDiv.style.display = 'none';
+        }
 
-    // Эмуляция отправки на сервер
-    setTimeout(() => {
-      console.log('Данные показаний:', data);
-      
-      // Показываем модальное окно с подтверждением
-      showModal('Показания успешно переданы!', 
-        `Ваши показания за ${data.date} приняты. Спасибо!`);
-      
-      // Сброс формы
-      form.reset();
-      if (dateInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.value = today;
+        // Обновление истории
+        loadHistory();
+        loadPreviousReadings();
+      } else {
+        alert('Ошибка: ' + (result.message || result.error || 'Не удалось отправить показания'));
       }
-      if (calculationDiv) {
-        calculationDiv.style.display = 'none';
-      }
-
-      // Обновление истории
-      loadHistory();
-      loadPreviousReadings();
 
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Отправить';
       }
-    }, 1000);
+    })
+    .catch(error => {
+      console.error('Ошибка отправки показаний:', error);
+      alert('Произошла ошибка при отправке показаний. Попробуйте позже.');
+      
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Отправить';
+      }
+    });
   }
 
   /**
@@ -382,12 +399,82 @@
     });
   }
 
-  // Обновление истории при изменении квартиры
-  if (apartmentSelect) {
-    apartmentSelect.addEventListener('change', function() {
-      loadPreviousReadings();
-      loadHistory();
-    });
+  /**
+   * Загрузка списка квартир из БД
+   */
+  async function loadApartments() {
+    if (!apartmentSelect) return;
+    
+    try {
+      // Показываем индикатор загрузки
+      apartmentSelect.innerHTML = '<option value="">Загрузка...</option>';
+      apartmentSelect.disabled = true;
+      
+      const response = await fetch('php/api/apartments.php?active=true');
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        // Очищаем список
+        apartmentSelect.innerHTML = '<option value="">Выберите квартиру</option>';
+        
+        // Заполняем список квартирами из БД
+        result.data.forEach(apt => {
+          const option = document.createElement('option');
+          option.value = apt.number;
+          
+          // Формируем текст опции: "Квартира №X" или "Квартира №X - ФИО"
+          let text = `Квартира №${apt.number}`;
+          if (apt.fio) {
+            text += ` - ${apt.fio}`;
+          }
+          option.textContent = text;
+          
+          apartmentSelect.appendChild(option);
+        });
+        
+        apartmentSelect.disabled = false;
+      } else {
+        throw new Error('Не удалось загрузить список квартир');
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки квартир:', error);
+      
+      // Fallback: заполняем список от 1 до 80
+      apartmentSelect.innerHTML = '<option value="">Выберите квартиру</option>';
+      for (let i = 1; i <= 80; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = `Квартира №${i}`;
+        apartmentSelect.appendChild(option);
+      }
+      apartmentSelect.disabled = false;
+    }
+  }
+
+  /**
+   * Загрузка тарифов из БД
+   */
+  async function loadTariffs() {
+    try {
+      const response = await fetch('php/api/tariffs.php');
+      const result = await response.json();
+      
+      if (result.success && result.data) {
+        // Обновляем тарифы из БД
+        if (result.data.cold_water) {
+          TARIFFS.coldWater = result.data.cold_water.rate;
+        }
+        if (result.data.hot_water) {
+          TARIFFS.hotWater = result.data.hot_water.rate;
+        }
+        if (result.data.electricity) {
+          TARIFFS.electricity = result.data.electricity.rate;
+        }
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки тарифов:', error);
+      // Используем тарифы по умолчанию
+    }
   }
 
   // Инициализация при загрузке страницы
