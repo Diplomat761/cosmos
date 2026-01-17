@@ -615,7 +615,7 @@
      .action-blocks--arabic a.action-block .action-block__icon--tools i.fa-wrench,
      .action-blocks--arabic .action-block:hover .action-block__icon--tools i.fa-wrench {
        position: absolute !important;
-       transform: rotate(-90deg) !important;
+       transform: rotate(80deg) !important;
        left: 50% !important;
        top: 50% !important;
        margin-left: -1.25rem !important;
@@ -1685,10 +1685,10 @@
           icon.style.setProperty('transform-origin', 'center center', 'important');
           
           if (icon.classList.contains('fa-wrench')) {
-            icon.style.setProperty('transform', 'rotate(-90deg)', 'important');
+            icon.style.setProperty('transform', 'rotate(-80deg)', 'important');
             icon.style.setProperty('z-index', '2', 'important');
           } else if (icon.classList.contains('fa-screwdriver')) {
-            icon.style.setProperty('transform', 'rotate(0deg)', 'important');
+            icon.style.setProperty('transform', 'rotate(-10deg)', 'important');
             icon.style.setProperty('z-index', '1', 'important');
           }
         }
